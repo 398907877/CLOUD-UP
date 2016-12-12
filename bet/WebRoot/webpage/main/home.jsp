@@ -40,7 +40,7 @@
 </div>
 <div style="margin-top: 20px;">
 <h3>技术交流</h3>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本系统由JEECG开源社区提供，JEECG微云快速开发平台，永久开源免费，为大家提供最好的<b>企业级快速开发平台</b></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本系统由JEECG开源社区提供，CLOUD 云上，永久开源免费，为大家提供最好的<b>企业级快速开发平台</b></p>
 <ul>
 	<li>作  者 ：<a href="http://www.jeecg.org/forum.php?mod=viewthread&tid=1047">张代浩</a></li>
 	<li>邮  箱 ：jeecg@sina.com</li>

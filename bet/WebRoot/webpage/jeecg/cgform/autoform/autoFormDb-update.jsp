@@ -58,7 +58,7 @@
 	//--update-end--Author: jg_huangxg  Date:20151111 for：增加table类型下,数据库表名选择时,字段自动变化
 	  hideDataSourceAndDataTable();
   });
-  <!--update-begin--Author:zzl  Date:20151113 for：数据源类型是数据库表时,隐藏填报数据源和填报数据库表 -->
+  //<!--update-begin--Author:zzl  Date:20151113 for：数据源类型是数据库表时,隐藏填报数据源和填报数据库表 -->
   function hideDataSourceAndDataTable(){
 	  var checkedVal=$("input[name='dbType']:checked").val();
 	  if(checkedVal=='table'){
@@ -67,8 +67,8 @@
 		  $("#dataSourceTr").show();
 	  }
   }
-  <!--update-end--Author:zzl  Date:20151113 for：数据源类型是数据库表时,隐藏填报数据源和填报数据库表 -->
-  <!--update-begin--Author:zzl  Date:20151113 for：填报数据源和填报数据库表隐藏时，表单提交需赋值 -->
+ // <!--update-end--Author:zzl  Date:20151113 for：数据源类型是数据库表时,隐藏填报数据源和填报数据库表 -->
+//  <!--update-begin--Author:zzl  Date:20151113 for：填报数据源和填报数据库表隐藏时，表单提交需赋值 -->
   function setDataSourceVal(){
 	  var checkedVal=$("input[name='dbType']:checked").val();
 	  if(checkedVal=='table'){
@@ -76,7 +76,7 @@
 		  $("#tbDbTableName").val($("#dbTableName").find("option:selected").val());
 	  }
   }
-  <!--update-end--Author:zzl  Date:20151113 for：填报数据源和填报数据库表隐藏时，表单提交需赋值 -->
+  //<!--update-end--Author:zzl  Date:20151113 for：填报数据源和填报数据库表隐藏时，表单提交需赋值 -->
  </script>
  </head>
  <body style="overflow-x: hidden;">

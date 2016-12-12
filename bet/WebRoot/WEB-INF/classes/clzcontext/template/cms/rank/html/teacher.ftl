@@ -68,7 +68,7 @@
             <div>
                 <ul style="padding-left: 0;list-style: none;">
                     <li>
-						<span>Powered by <a href="http://www.jeecg.org/" target="_blank">JEECG微云快速开发平台</a> Support by 国炬IT培训©2015 </span>
+						<span>Powered by <a href="http://www.jeecg.org/" target="_blank">CLOUD 云上</a> Support by 国炬IT培训©2015 </span>
                     </li>
                 </ul>
             </div>

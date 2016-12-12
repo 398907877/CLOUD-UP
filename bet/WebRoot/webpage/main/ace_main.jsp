@@ -58,7 +58,7 @@
 					<a href="#" class="navbar-brand">
 						<small>
 							<i class="icon-leaf"></i>
-							JEECG 微云快速开发平台
+							CLOUD 云上
 						</small>
 					</a><!-- /.brand -->
 				</div><!-- /.navbar-header -->

@@ -205,9 +205,9 @@ $(function() {
 		isTreeHandle();
 	});
 	getFormTemplateName();
-	<!--add-start--Author:scott Date:20160301 for：online表单移动样式单独配置-->
+	//<!--add-start--Author:scott Date:20160301 for：online表单移动样式单独配置-->
 	getFormTemplateName2();
-	<!--add-end--Author:scott Date:20160301 for：online表单移动样式单独配置-->
+	//<!--add-end--Author:scott Date:20160301 for：online表单移动样式单独配置-->
 }); 
 //根据是否为树形菜单隐藏或显示tree输入框
 function isTreeHandle() {
@@ -221,7 +221,7 @@ function isTreeHandle() {
 		$("tr.tree").find(":input").attr("disabled", true).removeAttr("datatype").end().hide();
 	}
 }
-<!--add-start--Author:张忠亮  Date:20150714 for：根据表单类型获取风格-->
+//<!--add-start--Author:张忠亮  Date:20150714 for：根据表单类型获取风格-->
 //获取表单风格模板名称
 function getFormTemplateName(){
  var type=$("#jformType").val();
@@ -246,7 +246,7 @@ function getFormTemplateName(){
 	});
 }
 
-<!--add-start--Author:scott Date:20160301 for：online表单移动样式单独配置-->
+//<!--add-start--Author:scott Date:20160301 for：online表单移动样式单独配置-->
 //获取表单风格模板名称
 function getFormTemplateName2(){
  var type=$("#jformType").val();
@@ -270,17 +270,17 @@ function getFormTemplateName2(){
 		}
 	});
 }
-<!--add-end--Author:scott Date:20160301 for：online表单移动样式单独配置-->
+//<!--add-end--Author:scott Date:20160301 for：online表单移动样式单独配置-->
 
 //表单类型改变 调用
 	function formTypeChange(){
 		jformTypeChange();
 		getFormTemplateName();
-		<!--add-start--Author:scott Date:20160301 for：online表单移动样式单独配置-->
+		//<!--add-start--Author:scott Date:20160301 for：online表单移动样式单独配置-->
 		getFormTemplateName2();
-		<!--add-end--Author:scott Date:20160301 for：online表单移动样式单独配置-->
+	//	<!--add-end--Author:scott Date:20160301 for：online表单移动样式单独配置-->
 	}
-<!--add-end--Author:张忠亮  Date:20150714 for：根据表单类型获取风格-->
+//<!--add-end--Author:张忠亮  Date:20150714 for：根据表单类型获取风格-->
 </script>
 <iframe id="iframe_check" name="iframe_check" src="plug-in/cgform/fields/cgformOfCheck.html" style="display: none"></iframe>
 <iframe id="iframe_database" src="plug-in/cgform/fields/cgformOfDatabase.html" style="display: none"></iframe>

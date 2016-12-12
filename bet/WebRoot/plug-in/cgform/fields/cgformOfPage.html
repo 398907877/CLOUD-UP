@@ -79,12 +79,12 @@
 
 <script>
 $(document).ready(function(){
-	<!-- add-start--Author:luobaoli  Date:20150611 for：扩展字段上增加提示-->
+	//<!-- add-start--Author:luobaoli  Date:20150611 for：扩展字段上增加提示-->
 	$("[titlemsg]").each(function() {
 		var titlemsg = $(this).attr("titlemsg");
 		$(this).attr("title",eval(titlemsg));
 	});
-	<!-- add-end--Author:luobaoli  Date:20150611 for：扩展字段上增加提示 -->
+	//<!-- add-end--Author:luobaoli  Date:20150611 for：扩展字段上增加提示 -->
 	
 	$("[mutiLang_id]").each(function() {
 		this.innerText = eval(this.attributes["mutiLang_id"].value);

@@ -374,8 +374,7 @@
     </div>
 
  </body>
- <script>UEDITOR_HOME_URL='<%=path%>
-	/plug-in/Formdesign/js/ueditor/';
+ <script>UEDITOR_HOME_URL='<%=path%>/plug-in/Formdesign/js/ueditor/';
 </script>
 <script type="text/javascript" charset="utf-8" src="plug-in/Formdesign/js/ueditor/ueditor.config.js?2023"></script>
 <script type="text/javascript" charset="utf-8" src="plug-in/Formdesign/js/ueditor/ueditor.all.js?2023"> </script>

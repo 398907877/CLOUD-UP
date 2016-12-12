@@ -309,6 +309,9 @@ public class AdminLoginController extends BaseController{
 			zIndexCookie.setMaxAge(3600*24);//一天
 			response.addCookie(zIndexCookie);
 			//update-end--Author: jg_huangxg Date:20160330 for: zIndex索引问题
+			System.out.println(sysTheme.getIndexPath());
+			
+			
 			return sysTheme.getIndexPath();
 		} else {
 			return "login/login";
