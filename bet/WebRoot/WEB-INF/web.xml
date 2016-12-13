@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
   <display-name>CLOUD 云上</display-name>
+  
+    <!--  wujiajun  servlet (mapping。请求分发  会先经过过滤器)    filter (mapping) (请求的时候会按照顺序  进入过滤器！ 执行过滤器方法后往下走。最后走到具体方法中)  listener(应用加载的时候执行类中的某个方法，只会应用启动的时候执行)    context-param(初始化的值)-->
+  
+  
   <context-param>
     <param-name>webAppRootKey</param-name>
     <param-value>jeecg-3.6.3</param-value>
@@ -9,13 +14,19 @@
     <param-name>log4jConfigLocation</param-name>
     <param-value>classpath:log4j.properties</param-value>
   </context-param>
+  
+  
   <listener>
     <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
   </listener>
+  
+  
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>classpath*:spring-*.xml</param-value>
   </context-param>
+  
+  
   <filter>
     <filter-name>openSessionInViewFilter</filter-name>
     <filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
@@ -32,6 +43,10 @@
     <filter-name>openSessionInViewFilter</filter-name>
     <url-pattern>/rest/*</url-pattern>
   </filter-mapping>
+  
+  
+  
+  
   <filter>
     <description>字符集过滤器</description>
     <filter-name>encodingFilter</filter-name>
@@ -46,6 +61,11 @@
     <filter-name>encodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  
+  
+  
+  
   <filter>
     <filter-name>druidWebStatFilter</filter-name>
     <filter-class>com.alibaba.druid.support.http.WebStatFilter</filter-class>
@@ -66,6 +86,11 @@
     <filter-name>druidWebStatFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  
+  
+  
+  
   <filter>
     <filter-name>ecsideExport</filter-name>
     <filter-class>org.jeecgframework.core.aop.GZipFilter</filter-class>
@@ -74,6 +99,11 @@
     <filter-name>ecsideExport</filter-name>
     <url-pattern>*</url-pattern>
   </filter-mapping>
+  
+  
+  
+  
+  
   <listener>
     <description>spring监听器</description>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -93,6 +123,8 @@
   <listener>
     <listener-class>org.jeecgframework.web.system.listener.OnlineListener</listener-class>
   </listener>
+  
+  <!--springmvc servlet  请求配置  -->
   <servlet>
     <description>spring mvc servlet</description>
     <servlet-name>springMvc</servlet-name>
@@ -108,6 +140,14 @@
     <servlet-name>springMvc</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
+  
+    
+  <servlet-mapping>
+    <servlet-name>springMvc</servlet-name>
+    <url-pattern>*.action</url-pattern>
+  </servlet-mapping>
+  
+    <!-- cxf 配置 -->
   <servlet>
     <description>Apache CXF Endpoint</description>
     <display-name>cxf</display-name>
@@ -115,18 +155,28 @@
     <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
     <load-on-startup>2</load-on-startup>
   </servlet>
+  
   <servlet-mapping>
     <servlet-name>cxf</servlet-name>
     <url-pattern>/cxf/*</url-pattern>
   </servlet-mapping>
+  
+  
+  <!--druidStatView  -->
+  
   <servlet>
     <servlet-name>druidStatView</servlet-name>
     <servlet-class>com.alibaba.druid.support.http.StatViewServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>springMvc</servlet-name>
-    <url-pattern>*.action</url-pattern>
+  
+    <servlet-mapping>
+    <servlet-name>druidStatView</servlet-name>
+    <url-pattern>/webpage/system/druid/*</url-pattern>
   </servlet-mapping>
+  
+
+    <!--restSpringMvc  -->
+  
   <servlet>
     <servlet-name>restSpringMvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -140,10 +190,9 @@
     <servlet-name>restSpringMvc</servlet-name>
     <url-pattern>/rest/*</url-pattern>
   </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>druidStatView</servlet-name>
-    <url-pattern>/webpage/system/druid/*</url-pattern>
-  </servlet-mapping>
+
+
+
   <servlet>
     <servlet-name>ConnectorServlet</servlet-name>
     <servlet-class>com.ckfinder.connector.ConnectorServlet</servlet-class>
@@ -165,6 +214,8 @@
     <servlet-name>ConnectorServlet</servlet-name>
     <url-pattern>/plug-in/ckfinder/core/connector/java/connector.java</url-pattern>
   </servlet-mapping>
+  
+  
   <servlet>
     <servlet-name>RandCodeImage</servlet-name>
     <servlet-class>org.jeecgframework.web.system.servlet.RandCodeImageServlet</servlet-class>
@@ -173,6 +224,9 @@
     <servlet-name>RandCodeImage</servlet-name>
     <url-pattern>/randCodeImage</url-pattern>
   </servlet-mapping>
+  
+
+  
   <filter>
     <filter-name>FileUploadFilter</filter-name>
     <filter-class>com.ckfinder.connector.FileUploadFilter</filter-class>
