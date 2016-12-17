@@ -183,7 +183,11 @@ public class UserController extends BaseController {
      */
     @RequestMapping(params = "changePoint")
     public String changePoint(HttpServletRequest request) {
-        TSUser user = ResourceUtil.getSessionUserName();
+    	
+        String userId = request.getParameter("id");
+        
+        TSUser  user = userService.get(TSUser.class, userId);
+        
         request.setAttribute("user", user);
         return "system/user/changePoint";
     }
@@ -214,8 +218,13 @@ public class UserController extends BaseController {
                 j.setSuccess(false);
                 return j;
             }
+         
+            
             BigDecimal point = new BigDecimal(request.getParameter("point"));
             BigDecimal result = user.getPoint().add(point);
+            user.setPoint(result);
+            userService.save(user);
+            
             if(result.compareTo(new BigDecimal(0)) == -1){
                 j.setMsg("提现积分大于原积分！");
                 j.setSuccess(false);
