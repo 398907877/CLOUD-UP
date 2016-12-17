@@ -21,6 +21,8 @@ import org.jeecgframework.core.util.ResourceUtil;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
 import org.jeecgframework.web.bet.job.RefreshLotteryTask;
 import org.jeecgframework.web.bet.service.BetOrderServiceI;
+import org.jeecgframework.web.system.pojo.base.TSUser;
+import org.jeecgframework.web.system.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -47,6 +49,12 @@ public class BetController extends BaseController{
     public static final long JG_TIME = 5*60*1000;
     @Autowired
     private BetOrderServiceI betOrderService;
+    
+	private SystemService systemService;
+	@Autowired
+	public void setSystemService(SystemService systemService) {
+		this.systemService = systemService;
+	}
     
     @RequestMapping(params="raceView")
     public String raceView(HttpServletRequest request){
@@ -145,6 +153,23 @@ public class BetController extends BaseController{
        
         return "website/main/online";
     }
+    
+    
+    @RequestMapping(params="getUserPoint")
+    @ResponseBody
+    public Map<String, Object> getUserPoint(HttpServletRequest request,String  userId){
+    	TSUser user = systemService.get(TSUser.class, userId);
+    	
+
+    	Map<String, Object>  remap=new  HashMap<String, Object>();
+    	
+    	remap.put("wujiajun", user.getPoint());
+    	
+    	
+    	
+        return  remap ;
+    }
+    
     
     
     

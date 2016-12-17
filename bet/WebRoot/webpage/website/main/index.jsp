@@ -3,6 +3,7 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -60,6 +61,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="plug-in/mui/js/mui.min.js"></script>
 		<script src="plug-in/mui/js/mui.enterfocus.js"></script>
 		<script src="plug-in/mui/js/app.js"></script>
+		
+				<script src="plug-in/jquery/jquery-1.8.0.min.js"></script>
+	
+		
 	</head>
 <body>
 	<header class="mui-bar mui-bar-nav">
@@ -74,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="mui-icon mui-icon-email"></span>
 				<span class="mui-tab-label">消息</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-map">
+			<a  id="my" class="mui-tab-item" href="#tabbar-with-map">
 				<span class="mui-icon mui-icon-gear"></span>
 				<span class="mui-tab-label">我的</span>
 			</a>
@@ -170,7 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<img class="mui-media-object mui-pull-left head-img" id="head-img" src="webpage/source/images/logo.png">
 									<div class="mui-media-body">
 										${ LOCAL_CLINET_USER.userName}
-										<p class='mui-ellipsis'>积分：${LOCAL_CLINET_USER.point }</p>
+										<p id="point" class='mui-ellipsis'>积分：${LOCAL_CLINET_USER.point }</p>
 									</div>
 								</a>
 							</li>
@@ -200,4 +205,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 </body>
+
+<script type="text/javascript">
+
+
+$("#my").click(function(){
+
+	var userid = "${LOCAL_CLINET_USER.id}";
+
+
+
+$.ajax({
+	   type: "POST",
+	   url: "betController.do?getUserPoint",
+	   dataType: "json",
+	   data: "userId="+userid,
+	   success: function(msg){
+
+
+$("#point").html("积分："+msg.wujiajun);
+	     
+	   }
+	});
+
+
+
+
+	
+});
+
+
+
+
+
+</script>
 </html>
