@@ -93,6 +93,14 @@
 									<div class="mui-media-body">赛车排名</div>
 								</a>
 							</li>
+									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="http://m.yx22.com/shipin.html?from=singlemessage&isappinstalled=0">
+								
+									<span class="mui-icon-extra mui-icon-extra-custom"></span>
+									<div class="mui-media-body">实时赛况</div>
+								</a>
+							</li>
+							
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="betController.do?myBetOrder">
 									<span class="mui-icon-extra mui-icon-extra-order"></span>
@@ -108,21 +116,16 @@
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
 									<span class="mui-icon-extra mui-icon-extra-gold"></span>
-									<div class="mui-media-body">两面盘</div>
+									<div class="mui-media-body">单双</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
 									<span class="mui-icon-extra mui-icon-extra-prech"></span>
-									<div class="mui-media-body">冠亚军组合</div>
+									<div class="mui-media-body">冠亚</div>
 								</a>
 							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-find"></span>
-									<div class="mui-media-body">龙虎大小单双</div>
-								</a>
-							</li>
+					
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
 									<span class="mui-icon mui-icon-gear"></span>
@@ -143,127 +146,16 @@
 							</li>
 						</ul>
 					</div>
-					<div class="mui-slider-item">
-						<ul class="mui-table-view mui-grid-view mui-grid-9">
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="betController.do?raceView">
-									<span class="mui-icon-extra mui-icon mui-icon-extra-grech"></span>
-									<div class="mui-media-body">赛车排名</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-order"></span>
-									<div class="mui-media-body">我的注单</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-trend"></span>
-									<div class="mui-media-body">历史开奖</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-gold"></span>
-									<div class="mui-media-body">两面盘</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-prech"></span>
-									<div class="mui-media-body">冠亚军组合</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-find"></span>
-									<div class="mui-media-body">龙虎大小单双</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-gear"></span>
-									<div class="mui-media-body">设置</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-info"></span>
-									<div class="mui-media-body">关于</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-more"></span>
-									<div class="mui-media-body">更多</div>
-								</a>
-							</li>
-						</ul>
-					</div>
-					<div class="mui-slider-item">
-						<ul class="mui-table-view mui-grid-view mui-grid-9">
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="betController.do?raceView">
-									<span class="mui-icon-extra mui-icon mui-icon-extra-grech"></span>
-									<div class="mui-media-body">赛车排名</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-order"></span>
-									<div class="mui-media-body">我的注单</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-trend"></span>
-									<div class="mui-media-body">历史开奖</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-gold"></span>
-									<div class="mui-media-body">两面盘</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-prech"></span>
-									<div class="mui-media-body">冠亚军组合</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-find"></span>
-									<div class="mui-media-body">龙虎大小单双</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-gear"></span>
-									<div class="mui-media-body">设置</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-info"></span>
-									<div class="mui-media-body">关于</div>
-								</a>
-							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon mui-icon-more"></span>
-									<div class="mui-media-body">更多</div>
-								</a>
-							</li>
-						</ul>
-					</div>
+					
+					
+					
+					
+					
+					
 				</div>
 				<div class="mui-slider-indicator">
 					<div class="mui-indicator mui-active"></div>
-					<div class="mui-indicator"></div>
-					<div class="mui-indicator"></div>
+					
 				</div>
 			</div>
 			</div>
