@@ -83,7 +83,11 @@
 			success:function(data){
 				mui.toast(data.msg);
 				localStorage.setItem("comfirmSuccess", data.success);
-				mui.back();
+				if (/(iPhone|iPad|iPod|Safari)/i.test(navigator.userAgent)) {             
+		            window.location.href = window.document.referrer;
+				}else{
+					mui.back();
+				}
 			}
 		});
 	}
