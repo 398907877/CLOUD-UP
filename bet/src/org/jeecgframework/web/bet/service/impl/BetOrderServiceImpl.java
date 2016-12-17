@@ -101,12 +101,12 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
                         user.setPoint(user.getPoint().add(point));
                         this.saveOrUpdate(user);
                         try {
-                            Collection<Client> clients = ClientManager.getInstance().getAllClient();
-                            for (Client client : clients) {
+                            //Collection<Client> clients = ClientManager.getInstance().getAllClient();
+                            /*for (Client client : clients) {
                                 if(client.getUser().getId().equals(user.getId())){
                                     client.getUser().setPoint(user.getPoint());
                                 }
-                            }
+                            }*/
                         } catch (Exception e) {
                             e.printStackTrace();
                             LogUtil.error(e.getMessage());
