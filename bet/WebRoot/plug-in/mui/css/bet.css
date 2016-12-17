@@ -1,0 +1,109 @@
+.mui-badge-1{
+				color: greenyellow;
+			}
+			input.bet-amount {
+-webkit-user-select: text;
+text-align: right;
+padding: 0 0em;
+border: 0px;
+border-bottom: 1px solid #007aff;
+border-radius: 0;
+font-size: 16px;
+margin-bottom: 0px;
+height: 20px;
+width: 30%;
+outline: none;
+}
+.bet-row-xs-3{
+	float:left;width:25%;text-align: center;
+}
+.bet-row-xs-4{
+	float:left;width:33%;text-align: center;
+}
+.bet-row{
+position: relative;
+overflow: hidden;
+padding: 5px 20px;
+}
+.mui-table-view-cell{
+	padding: 9px 15px;
+}
+.bet-row:after {
+position: absolute;
+right: 0;
+bottom: 0;
+left: 15px;
+height: 1px;
+content: '';
+-webkit-transform: scaleY(.5);
+transform: scaleY(.5);
+background-color: #c8c7cc;
+}
+.mui-badge-ext{
+	font-size: 14px;
+line-height: 1;
+display: inline-block;
+padding: 3px 6px;
+border-radius: 100px;
+background-color: rgba(0,0,0,.15);
+}
+.mui-badge-1 {
+	font-size: 14px;
+color: #fff;
+background-color: #FFFF00;
+}
+.mui-badge-2 {
+	font-size: 14px;
+color: #fff;
+background-color: #0089FF;
+}
+.mui-badge-3 {
+	font-size: 14px;
+	color: #fff;
+background-color: #4D4D4D;
+}
+.mui-badge-4 {
+color: #fff;
+font-size: 14px;
+background-color: #FF7300;
+}
+.mui-badge-5 {
+	font-size: 14px;
+color: #fff;
+background-color: #81FFFF;
+}
+
+.mui-badge-6 {
+	font-size: 14px;
+color: #fff;
+background-color:#5200FF;
+}
+.mui-badge-7 {
+	font-size: 14px;
+color: #fff;
+background-color: #E3E3E3;
+}
+.mui-badge-8 {
+	font-size: 14px;
+color: #fff;
+background-color: #FF0000;
+}
+.mui-badge-9 {
+	font-size: 14px;
+color: #fff;
+background-color: #760000;
+}
+.mui-badge-10 {
+	font-size: 14px;
+color: #fff;
+background-color: #209D00;
+}
+.odds{
+	color: #FF0000;
+}
+.win-span{
+	color: green;
+}
+.lose-span{
+	color: red;
+}
