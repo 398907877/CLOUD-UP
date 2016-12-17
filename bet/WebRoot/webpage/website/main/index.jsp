@@ -73,7 +73,7 @@
 				<span class="mui-tab-label">首页</span>
 			</a>
 			<a class="mui-tab-item" href="#tabbar-with-chat">
-				<span class="mui-icon mui-icon-email"><span class="mui-badge">9</span></span>
+				<span class="mui-icon mui-icon-email"></span>
 				<span class="mui-tab-label">消息</span>
 			</a>
 			<a class="mui-tab-item" href="#tabbar-with-map" id="tabbar-with-map">
@@ -94,7 +94,7 @@
 								</a>
 							</li>
 									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="http://m.yx22.com/shipin.html?from=singlemessage&isappinstalled=0">
+								<a href="betController.do?online">
 								
 									<span class="mui-icon-extra mui-icon-extra-custom"></span>
 									<div class="mui-media-body">实时赛况</div>

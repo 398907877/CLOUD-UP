@@ -136,4 +136,16 @@ public class BetController extends BaseController{
         request.setAttribute("phaseHistory", betOrderService.findForJdbc("SELECT * FROM T_BET_PHASE t order by t.phase desc"));
         return "website/main/phaseHistory";
     }
+    
+    
+    
+    
+    @RequestMapping(params ="online")
+    public String online(HttpServletRequest request){
+       
+        return "website/main/online";
+    }
+    
+    
+    
 }
