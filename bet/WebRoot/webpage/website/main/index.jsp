@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="/context/mytags.jsp"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -57,11 +60,6 @@
 		<script src="plug-in/mui/js/mui.min.js"></script>
 		<script src="plug-in/mui/js/mui.enterfocus.js"></script>
 		<script src="plug-in/mui/js/app.js"></script>
-		<script type="text/javascript">
-		  function refreshUserInfo(){
-			  console.log("s")
-		  }
-		</script>
 	</head>
 <body>
 	<header class="mui-bar mui-bar-nav">
@@ -76,7 +74,7 @@
 				<span class="mui-icon mui-icon-email"></span>
 				<span class="mui-tab-label">消息</span>
 			</a>
-			<a class="mui-tab-item" href="#tabbar-with-map" id="tabbar-with-map">
+			<a class="mui-tab-item" href="#tabbar-with-map">
 				<span class="mui-icon mui-icon-gear"></span>
 				<span class="mui-tab-label">我的</span>
 			</a>
@@ -85,6 +83,8 @@
 			<div id="tabbar" class="mui-control-content mui-active">
 			<div id="Gallery" class="mui-slider" style="margin-top:15px;">
 				<div class="mui-slider-group">
+		
+					
 					<div class="mui-slider-item">
 						<ul class="mui-table-view mui-grid-view mui-grid-9">
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
@@ -94,7 +94,7 @@
 								</a>
 							</li>
 									<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="betController.do?online">
+								<a href="http://m.yx22.com/shipin.html?from=singlemessage&isappinstalled=0">
 								
 									<span class="mui-icon-extra mui-icon-extra-custom"></span>
 									<div class="mui-media-body">实时赛况</div>
@@ -113,18 +113,22 @@
 									<div class="mui-media-body">历史开奖</div>
 								</a>
 							</li>
+							
+								<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+								<a href="#">
+									<span class="mui-icon-extra mui-icon-extra-rank"></span>
+									<div class="mui-media-body">冠亚</div>
+								</a>
+							</li>
+							
+							
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
 									<span class="mui-icon-extra mui-icon-extra-gold"></span>
 									<div class="mui-media-body">单双</div>
 								</a>
 							</li>
-							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
-									<span class="mui-icon-extra mui-icon-extra-prech"></span>
-									<div class="mui-media-body">冠亚</div>
-								</a>
-							</li>
+						
 					
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
@@ -148,14 +152,11 @@
 					</div>
 					
 					
-					
-					
-					
-					
 				</div>
 				<div class="mui-slider-indicator">
 					<div class="mui-indicator mui-active"></div>
-					
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
 				</div>
 			</div>
 			</div>
@@ -169,7 +170,7 @@
 									<img class="mui-media-object mui-pull-left head-img" id="head-img" src="webpage/source/images/logo.png">
 									<div class="mui-media-body">
 										${ LOCAL_CLINET_USER.userName}
-										<p class='mui-ellipsis'>积分：<fmt:formatNumber  type="number" value="${LOCAL_CLINET_USER.point }" pattern="0.00"/> </p>
+										<p class='mui-ellipsis'>积分：${LOCAL_CLINET_USER.point }</p>
 									</div>
 								</a>
 							</li>
