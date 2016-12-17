@@ -209,10 +209,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 
 
-$("#my").click(function(){
+
+
+	
+var btn = document.getElementById("my");
+//监听点击事件
+btn.addEventListener("tap",function () {
+
 
 	var userid = "${LOCAL_CLINET_USER.id}";
-
 
 
 $.ajax({
@@ -227,14 +232,9 @@ $("#point").html("积分："+msg.wujiajun);
 	     
 	   }
 	});
-
-
-
-
-	
 });
-
-
+//触发submit按钮的点击事件
+mui.trigger(btn,'tap');
 
 
 
