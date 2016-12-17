@@ -338,6 +338,28 @@ public class AdminLoginController extends BaseController{
 		return modelAndView;
 	}
 
+	
+	
+	
+
+	/**
+	 * 退出系统前台
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(params = "applogout")
+	public ModelAndView applogout(HttpServletRequest request) {
+		HttpSession session = ContextHolderUtils.getSession();
+		TSUser user = ResourceUtil.getSessionUserName();
+		systemService.addLog("用户" + user.getUserName() + "已退出",
+				Globals.Log_Type_EXIT, Globals.Log_Leavel_INFO);
+		ClientManager.getInstance().removeClinet(session.getId());
+		session.invalidate();
+		ModelAndView modelAndView = new ModelAndView(new RedirectView(
+				"loginController.do?login"));
+		return modelAndView;
+	}
 	/**
 	 * 菜单跳转
 	 * 
