@@ -136,15 +136,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 					
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="#">
+								<a href="betController.do?rule">
 									<span class="mui-icon mui-icon-gear"></span>
-									<div class="mui-media-body">设置</div>
+									<div class="mui-media-body">游戏规则</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
 								<a href="#">
 									<span class="mui-icon mui-icon-info"></span>
-									<div class="mui-media-body">关于</div>
+									<div class="mui-media-body">免责说明</div>
 								</a>
 							</li>
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
