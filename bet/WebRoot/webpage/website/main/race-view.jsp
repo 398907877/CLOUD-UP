@@ -57,6 +57,8 @@
 			<div class="mui-table-view-divider" id="openPhase">
 				<span class="info-title">${phaseInfo.openPhase}期:</span>
 				<c:forEach items="${phaseInfo.openResult }" var="o"><span class="mui-badge mui-badge-<fmt:formatNumber type="number" value="${o }"></fmt:formatNumber>"><fmt:formatNumber type="number" value="${o }"></fmt:formatNumber></span> </c:forEach>
+			<br/>
+			<span  class="info-title" style="color: red">本期中奖人数:235</span>
 			</div>
 			<div class="mui-table-view-divider">
 				<input type="hidden" name="fpTime" id="fpTime" value='${phaseInfo.fpTime }'/>

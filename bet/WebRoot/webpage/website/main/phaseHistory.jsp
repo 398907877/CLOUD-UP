@@ -21,7 +21,7 @@
     display: inline-block;
     padding: 3px 6px;
     color: #333;
-    border-radius: 100px;
+
     background-color: rgba(0,0,0,.15);
 }
 		</style>
