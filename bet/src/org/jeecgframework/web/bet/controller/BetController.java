@@ -204,6 +204,14 @@ public class BetController extends BaseController{
     }
     
     
+    @RequestMapping(params ="ihavenothing")
+    public String ihavenothing(HttpServletRequest request){
+       
+        return "website/main/ihavenothing";
+    }
+    
+    
+    
     @RequestMapping(params="getUserPoint")
     @ResponseBody
     public Map<String, Object> getUserPoint(HttpServletRequest request,String  userId){
