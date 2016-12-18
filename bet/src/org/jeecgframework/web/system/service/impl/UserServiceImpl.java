@@ -52,7 +52,7 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
     @Override
     public void savePoint(BigDecimal point,TSUser user) {
         PointDetailEntity pointDetail = new PointDetailEntity();
-        BigDecimal amount = point.subtract(user.getPoint());
+        BigDecimal amount = point.subtract(user.getPoint()==null?new BigDecimal(0):user.getPoint());
         pointDetail.setAmount(amount);
         pointDetail.setCreatetime(new Date());
         pointDetail.setCreateuser(ResourceUtil.getSessionUserName().getUserName());

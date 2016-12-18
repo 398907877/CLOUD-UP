@@ -201,22 +201,23 @@ public class UserController extends BaseController {
         try {
             String userId = request.getParameter("id");
             TSUser user = null;
-            Collection<Client> clients = ClientManager.getInstance().getAllClient();
-            for (Client client : clients) {
-                if(client.getUser().getId().equals(userId)){
-                    user = client.getUser();
-                }
-            }
-            if(user == null){
+
+            
                 user = userService.get(TSUser.class, userId);
-            }
+          
             if(user == null){
                 j.setMsg("用户不存在！");
                 j.setSuccess(false);
                 return j;
             }
             BigDecimal point = new BigDecimal(request.getParameter("point"));
-            BigDecimal result = user.getPoint().add(point);
+            
+            
+
+            BigDecimal  pointzz=user.getPoint()==null?new BigDecimal(0):user.getPoint();
+            
+            BigDecimal result =pointzz.add(point);
+            
             if(result.compareTo(new BigDecimal(0)) == -1){
                 j.setMsg("提现积分大于原积分！");
                 j.setSuccess(false);
@@ -226,6 +227,8 @@ public class UserController extends BaseController {
                 j.setSuccess(true);
             }
         } catch (Exception e) {
+        	
+        	e.printStackTrace();
             j.setMsg("请输入正确积分");
             j.setSuccess(false);
         }
