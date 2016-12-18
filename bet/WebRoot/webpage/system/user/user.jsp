@@ -91,13 +91,6 @@
                 <span class="Validform_checktip"><t:mutiLang langKey="fill.realname"/></span>
             </td>
 		</tr>
-		<tr>
-			<td align="right" width="10%" nowrap><label class="Validform_label">积分: </label></td>
-			<td class="value" width="10%">
-                <input name="point" type="number" maxlength="9" value="${user.point }" class="inputxt" datatype="n1" errormsg="请输入整数！"> 
-                <span class="Validform_checktip"></span>
-            </td>
-		</tr>
 		<c:if test="${user.id==null }">
 			<tr>
 				<td align="right"><label class="Validform_label"> <t:mutiLang langKey="common.password"/>: </label></td>

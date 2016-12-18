@@ -183,11 +183,8 @@ public class UserController extends BaseController {
      */
     @RequestMapping(params = "changePoint")
     public String changePoint(HttpServletRequest request) {
-    	
         String userId = request.getParameter("id");
-        
         TSUser  user = userService.get(TSUser.class, userId);
-        
         request.setAttribute("user", user);
         return "system/user/changePoint";
     }
@@ -218,18 +215,13 @@ public class UserController extends BaseController {
                 j.setSuccess(false);
                 return j;
             }
-         
-            
             BigDecimal point = new BigDecimal(request.getParameter("point"));
             BigDecimal result = user.getPoint().add(point);
-            user.setPoint(result);
-            userService.save(user);
-            
             if(result.compareTo(new BigDecimal(0)) == -1){
                 j.setMsg("提现积分大于原积分！");
                 j.setSuccess(false);
             }else{
-                
+                userService.savePoint(result, user);
                 j.setMsg("修改成功");
                 j.setSuccess(true);
             }
@@ -1240,5 +1232,13 @@ public class UserController extends BaseController {
 	@RequestMapping(params = "userSelect")
 	public String userSelect() {
 		return "system/user/userSelect";
+	}
+	
+	@RequestMapping(params="getUserInfo")
+	@ResponseBody
+	public TSUser getUserInfo(HttpServletRequest request){
+	    TSUser user = userService.get(TSUser.class, ResourceUtil.getSessionUserName().getId());
+	    request.getSession().setAttribute(ResourceUtil.LOCAL_CLINET_USER,user);
+	    return user;
 	}
 }

@@ -58,7 +58,7 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
         pointDetail.setCreateuser(ResourceUtil.getSessionUserName().getUserName());
         pointDetail.setCreateuserid(ResourceUtil.getSessionUserName().getId());
         pointDetail.setUserid(user.getId());
-        pointDetail.setType("0");//0 充值 或者体现
+        pointDetail.setType("0");//0 充值 或者提现
         this.saveOrUpdate(pointDetail);
         user.setPoint(point);
         this.saveOrUpdate(user);

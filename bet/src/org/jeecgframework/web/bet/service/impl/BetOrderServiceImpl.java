@@ -32,7 +32,7 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
      */
     @Override
     public int saveBetOrders(List<BetOrderEntity> betOrders) {
-        TSUser user = ResourceUtil.getSessionUserName();
+        TSUser user = this.get(TSUser.class, ResourceUtil.getSessionUserName().getId());
         BigDecimal totalAmmount = new BigDecimal(0);
         List<PointDetailEntity> pointDetailList = new ArrayList<PointDetailEntity>();
         for (BetOrderEntity betOrderEntity : betOrders) {
@@ -62,6 +62,7 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
         this.batchSave(betOrders);
         this.batchSave(pointDetailList);
         user.setPoint(user.getPoint().subtract(totalAmmount));
+        ResourceUtil.getSessionUserName().setPoint(user.getPoint());
         this.saveOrUpdate(user);
         return 0;
     }
@@ -124,5 +125,4 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
             }
         }
     }
-	
 }

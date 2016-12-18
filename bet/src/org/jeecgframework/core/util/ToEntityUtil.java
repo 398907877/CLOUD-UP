@@ -2,6 +2,7 @@ package org.jeecgframework.core.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,7 +69,9 @@ public final class ToEntityUtil {
 				method.invoke(entity, Long.parseLong(val));
 			} else if (parameterType.equals("Double")) {
 				method.invoke(entity, Double.parseDouble(val));
-			}
+			}else if (parameterType.equals("BigDecimal")) {
+                method.invoke(entity, new BigDecimal(val));
+            }
 		}
 		return entity;
 	}

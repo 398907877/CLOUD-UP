@@ -49,7 +49,7 @@
 				已结算注单</a>
 			</div>
 			<div class="mui-table-view-divider">
-				<span class="info-title">总投注:${betInfo[0].amount }</span>
+				<span class="info-title">今日--总投注:${betInfo[0].amount }</span>
 				<span class="info-title">输/赢:${betInfo[0].result }</span>
 			</div>
 			<div id="item1" class="mui-control-content mui-active">

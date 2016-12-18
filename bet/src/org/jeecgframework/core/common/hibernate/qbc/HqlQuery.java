@@ -96,6 +96,7 @@ public class HqlQuery {
 		this.dataGrid=dataGrid;
 		this.queryString=hqlString;
 		this.pageSize=dataGrid.getRows();
+		this.curPage = dataGrid.getPage();
 		this.field=dataGrid.getField();
 		this.class1=class1;
 	}

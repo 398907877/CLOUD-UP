@@ -1584,10 +1584,10 @@
 					}
 				});
 			}
-			if(totalAmount > parseFloat("${LOCAL_CLINET_USER.point}")){
+			/* if(totalAmount > parseFloat("${LOCAL_CLINET_USER.point}")){
 				mui.toast("您的积分不足，请修改投注积分！");
 				return;
-			}
+			} */
 			if(betList.length == 0){
 				mui.toast("您没有输入任何投注积分，请输入！");
 				return;

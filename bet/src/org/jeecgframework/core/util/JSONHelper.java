@@ -17,6 +17,10 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.serializer.JSONSerializer;
+import com.alibaba.fastjson.serializer.PropertyFilter;
+import com.alibaba.fastjson.serializer.SerializeWriter;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -544,4 +548,47 @@ public final class JSONHelper {
 		return jsonTemp;
 	}
 
+	/**
+     * 根据操作符过滤字段
+     * @param obj
+     * @param filter
+     * @param operator
+     * @return
+     */
+    public static String jsonStringFilter(Object obj,String[] filter,final boolean operator){
+        if(filter==null){
+            filter = new String[]{};
+        }
+        final List<String> list = new ArrayList<String>();
+        for(String f : filter){
+            list.add(f);
+        }
+        PropertyFilter propertyfilter  = new PropertyFilter() {
+            @Override
+            public boolean apply(Object object, String name, Object value) {
+                if(list.contains(name)){
+                    if(operator){
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
+                       
+                }else{
+                    if(operator){
+                        return true;
+                    }
+                    else{
+                        return false;
+                    }
+                       
+                }
+            }
+        };
+        SerializeWriter sw = new SerializeWriter();
+        JSONSerializer serializer = new JSONSerializer(sw);
+        serializer.getPropertyFilters().add(propertyfilter);
+        serializer.write(obj);
+        return sw.toString();
+    }
 }

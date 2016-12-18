@@ -88,7 +88,7 @@ public class TSBaseUser extends IdEntity implements java.io.Serializable {
 		this.activitiSync = activitiSync;
 	}
 	
-	
+	@JsonIgnore
 	@Column(name = "password", length = 100)
 	public String getPassword() {
 		return this.password;

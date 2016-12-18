@@ -6,18 +6,26 @@
 package org.jeecgframework.web.bet.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.jeecgframework.core.common.controller.BaseController;
+import org.jeecgframework.core.common.hibernate.qbc.CriteriaQuery;
+import org.jeecgframework.core.common.hibernate.qbc.HqlQuery;
+import org.jeecgframework.core.common.hibernate.qbc.PageList;
 import org.jeecgframework.core.common.model.json.AjaxJson;
+import org.jeecgframework.core.common.model.json.DataGrid;
+import org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil;
 import org.jeecgframework.core.util.DateUtils;
 import org.jeecgframework.core.util.JSONHelper;
 import org.jeecgframework.core.util.ResourceUtil;
+import org.jeecgframework.tag.core.easyui.TagUtil;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
 import org.jeecgframework.web.bet.job.RefreshLotteryTask;
 import org.jeecgframework.web.bet.service.BetOrderServiceI;
@@ -26,7 +34,6 @@ import org.jeecgframework.web.system.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -132,13 +139,47 @@ public class BetController extends BaseController{
     }
     @RequestMapping(params="myBetOrder")
     public String myBetOrder(HttpServletRequest request){
-        request.setAttribute("betInfo", betOrderService.findForJdbc("SELECT sum(t.result) as result,sum(t.amount) as amount FROM T_BET_ORDER t where t.userid=?",
-                ResourceUtil.getSessionUserName().getId()));
+        request.setAttribute("betInfo", betOrderService.findForJdbc("SELECT IFNULL(sum(t.result),0) as result,IFNULL(sum(t.amount),0) as amount FROM T_BET_ORDER t "
+                + "where t.userid=? and t.createTime Between ? and ?",
+                ResourceUtil.getSessionUserName().getId(),
+                DateUtils.date2Str(new Date(), new SimpleDateFormat("yyyy-MM-dd 00:00:00")),
+                DateUtils.date2Str(new Date(), new SimpleDateFormat("yyyy-MM-dd 23:59:59"))));
         request.setAttribute("betOrderList", betOrderService.findForJdbc("SELECT * FROM T_BET_ORDER t where t.userid=? order by t.createtime desc",
                 ResourceUtil.getSessionUserName().getId()));
         return "website/main/myBetOrder";
     }
     
+    @RequestMapping(params = "betOrdersDataGrid")
+    public void betOrdersDataGrid(BetOrderEntity betOrder,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
+        betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
+        CriteriaQuery cq = new CriteriaQuery(BetOrderEntity.class, dataGrid);
+        HqlGenerateUtil.installHql(cq, betOrder);
+        cq.eq("state", "1");
+        cq.add();
+        betOrderService.getDataGridReturn(cq, true);
+        TagUtil.datagrid(response, dataGrid);
+    }
+    
+    @RequestMapping(params = "betOrders")
+    public String betOrders(HttpServletRequest request) {
+        return "bet/betOrders";
+    }
+    @RequestMapping(params = "accountMemberDataGrid")
+    public void accountMemberDataGrid(BetOrderEntity betOrder,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
+        betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
+        String sql ="select t.userid,t.username,SUM(amount) as amount,SUM(result) as result from t_bet_order t "
+                + "where t.username like '%"+betOrder.getUsername()+"%' "
+                + "GROUP BY t.username,t.userid ";
+        PageList pg = betOrderService.getPageListBySql(new HqlQuery(BetOrderEntity.class,
+                sql, dataGrid), true);
+        String[] fields = dataGrid.getField().split(",");
+        this.setListToJsonString(pg.getCount(), pg.getResultList(),null, true, response);
+    }
+    
+    @RequestMapping(params = "accountMember")
+    public String accountMember(HttpServletRequest request) {
+        return "bet/memberAccount";
+    }
     @RequestMapping(params ="phaseHistory")
     public String phaseHistory(HttpServletRequest request){
         request.setAttribute("phaseHistory", betOrderService.findForJdbc("SELECT * FROM T_BET_PHASE t order by t.phase desc"));

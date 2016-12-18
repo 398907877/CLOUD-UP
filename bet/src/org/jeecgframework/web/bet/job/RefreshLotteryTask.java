@@ -57,8 +57,8 @@ public class RefreshLotteryTask {
                    for (int i = 0; i < data.get(0).keySet().size(); i++) {
                        String key = (String) data.get(0).keySet().toArray()[i];
                        currentLottery.put(key, data.get(0).get(key));
-                       currentLottery.put("IS_INSERT", "false");
                    }
+                   currentLottery.put("IS_INSERT", "false");
                }
                if("false".equals(currentLottery.get("IS_INSERT").toString())){
                    List<BetPhaseEntity> phases = betPhaseService.findByProperty(BetPhaseEntity.class, "phase", 

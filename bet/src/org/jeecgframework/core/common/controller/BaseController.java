@@ -4,6 +4,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Projections;
 import org.jeecgframework.core.common.service.CommonService;
 import org.jeecgframework.core.interceptors.DateConvertEditor;
+import org.jeecgframework.core.util.JSONHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -11,6 +12,10 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -107,4 +112,23 @@ public class BaseController {
         return result;
     }
 	
+    protected void setListToJsonString(int totalCount, List list, String[] includeOrExclude, boolean isExclude,
+            HttpServletResponse response) {
+        StringBuffer jsonTemp = new StringBuffer("{\"total\":");
+        jsonTemp.append(totalCount).append(",\"rows\":");
+        String json = JSONHelper.jsonStringFilter(list, includeOrExclude, isExclude);
+        jsonTemp.append(json).append("}");
+        response.setContentType("application/json");
+        response.setHeader("Cache-Control", "no-store");
+        PrintWriter pw = null;
+        try {
+            pw = response.getWriter();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        pw.write(jsonTemp.toString());
+        pw.flush();
+        pw.close();
+    }
 }

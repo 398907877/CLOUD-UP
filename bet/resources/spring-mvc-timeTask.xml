@@ -73,8 +73,8 @@
 			<list>
 				<!-- <ref bean="taskDemoServiceTaskCronTrigger" />
 				<ref bean="smsSendTaskCronTrigger" /> -->
-				<ref bean="refreshLotteryTaskCronTrigger" />
-				<ref bean="orderAccountTaskCronTrigger" />
+				<!-- <ref bean="refreshLotteryTaskCronTrigger" />
+				<ref bean="orderAccountTaskCronTrigger" /> -->
 			</list>
 		</property>
 	</bean>
