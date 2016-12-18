@@ -29,8 +29,8 @@
     top: 8px;
     padding: 1px 4px;
     color: #fff;
-    background-color: #7188CA;
-    border: solid 1px #7188ca;
+    background-color: #007aff;
+    border: solid 1px #007aff;
 }
 .mui-loader {
 				position: absolute;
@@ -46,7 +46,7 @@
 	</head>
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a    href="loginController.do?login" class=" mui-btn mui-btn-link mui-pull-left">首页</a>
 			<h1 class="mui-title">排名竞猜（第${phaseInfo.nextPhase}期）</h1>
 			<button class="mui-btn mui-btn-link mui-pull-right" onclick="confirmBetAmount()">投注</button>
 		</header>

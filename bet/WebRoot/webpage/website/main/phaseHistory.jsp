@@ -29,7 +29,7 @@
 </head>
 	<body>
 		<header class="mui-bar mui-bar-nav">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a    href="loginController.do?login" class=" mui-btn mui-btn-link mui-pull-left">首页</a>
 			<h1 class="mui-title">历史开奖</h1>
 		</header>
 		<div class="mui-content">
