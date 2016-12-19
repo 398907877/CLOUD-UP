@@ -112,10 +112,12 @@ public class BaseController {
         return result;
     }
 	
-    protected void setListToJsonString(int totalCount, List list, String[] includeOrExclude, boolean isExclude,
+    protected void setListToJsonString(int totalCount,String totalAmount,String totalResult, List list, String[] includeOrExclude, boolean isExclude,
             HttpServletResponse response) {
         StringBuffer jsonTemp = new StringBuffer("{\"total\":");
-        jsonTemp.append(totalCount).append(",\"rows\":");
+        jsonTemp.append(totalCount).append(",\"totalAmount\":");
+        jsonTemp.append(totalAmount).append(",\"totalResult\":");
+        jsonTemp.append(totalResult).append(",\"rows\":");
         String json = JSONHelper.jsonStringFilter(list, includeOrExclude, isExclude);
         jsonTemp.append(json).append("}");
         response.setContentType("application/json");

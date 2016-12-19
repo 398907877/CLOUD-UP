@@ -58,7 +58,7 @@
 				<span class="info-title">${phaseInfo.openPhase}期:</span>
 				<c:forEach items="${phaseInfo.openResult }" var="o"><span class="mui-badge mui-badge-<fmt:formatNumber type="number" value="${o }"></fmt:formatNumber>"><fmt:formatNumber type="number" value="${o }"></fmt:formatNumber></span> </c:forEach>
 			<br/>
-			<span  class="info-title" style="color: red">本期中奖人数:235</span>
+			<span  class="info-title" style="color: red">本期中奖人数:${phaseInfo.prizeCount }</span>
 			</div>
 			<div class="mui-table-view-divider">
 				<input type="hidden" name="fpTime" id="fpTime" value='${phaseInfo.fpTime }'/>
@@ -1495,11 +1495,15 @@
 					},kj);
 					fpTimer.start();
 					kjTimer.start();
-					var openPhaseHtml = "<span class='info-title'>"+data.openPhase+"期:</span> ";
+					var openPhaseHtml = "<span class='info-title last-phase'>"+data.openPhase+"期:</span>";
 					for(var i in data.openResult){
 						var result = data.openResult[i];
 						openPhaseHtml+=" <span class='mui-badge mui-badge-"+parseInt(result)+"'>"+parseInt(result)+"</span>";
 					}
+					
+					openPhaseHtml += "<br/>"
+						+"<span  class='info-title' style='color: red'>本期中奖人数:"+data.prizeCount+"</span>";
+						
 					mui("#openPhase")[0].innerHTML = openPhaseHtml;
 					mui(".mui-title")[0].innerHTML = "排名竞猜（第"+data.nextPhase+"期）";
 				}

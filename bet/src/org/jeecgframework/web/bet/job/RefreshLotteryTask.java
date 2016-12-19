@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -52,14 +53,17 @@ public class RefreshLotteryTask {
                InputStream is = response.getEntity().getContent();  
                JSONObject json = new JSONObject(new JSONTokener(new InputStreamReader(is,HTTP.UTF_8)));
                List<Map<String, Object>> data = JSONHelper.toList((JSONHelper.json2Map(json.toString()).get("data").toString()));
-               if (currentLottery.keySet().size()==0||!data.get(0).get("next_phase").equals((String)currentLottery.get("next_phase"))
-                       ||!data.get(0).get("open_phase").equals((String)currentLottery.get("open_phase"))) {
+               String open_phase = data.get(0).get("open_phase").toString();
+               String next_phase = data.get(0).get("next_phase").toString();
+               if (currentLottery.keySet().size()==0||!next_phase.equals((String)currentLottery.get("next_phase"))
+                       ||!open_phase.equals((String)currentLottery.get("open_phase"))) {
                    for (int i = 0; i < data.get(0).keySet().size(); i++) {
                        String key = (String) data.get(0).keySet().toArray()[i];
                        currentLottery.put(key, data.get(0).get(key));
                    }
                    currentLottery.put("IS_INSERT", "false");
                }
+              
                if("false".equals(currentLottery.get("IS_INSERT").toString())){
                    List<BetPhaseEntity> phases = betPhaseService.findByProperty(BetPhaseEntity.class, "phase", 
                            Integer.valueOf(currentLottery.get("open_phase").toString()));

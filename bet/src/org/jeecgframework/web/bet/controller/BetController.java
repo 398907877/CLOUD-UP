@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +55,7 @@ public class BetController extends BaseController{
     private static final Logger logger = Logger.getLogger(BaseController.class);
     public static final long FP_TIME = 40000;
     public static final long JG_TIME = 5*60*1000;
+    private final Map<String,Object> prizeCount = new HashMap<String,Object>();
     @Autowired
     private BetOrderServiceI betOrderService;
     
@@ -71,6 +73,7 @@ public class BetController extends BaseController{
         if((kjTime-curTime)>6*60*1000){
             request.setAttribute("IS_STOP", "true");
         }
+        
         return "website/main/race-view";
     }
     @RequestMapping(params="getPhaseInfo")
@@ -97,6 +100,14 @@ public class BetController extends BaseController{
             difTime = kjTime - curTime;
             phaseInfo.put("nextPhase", currentLottery.get("next_phase"));
         }
+        String open_phase = currentLottery.get("open_phase").toString();
+        if(prizeCount.get(open_phase) == null){
+            prizeCount.clear();
+            Random rand = new Random();  
+            Integer p = rand.nextInt(200)+200;
+            prizeCount.put(open_phase, p);
+        }
+        phaseInfo.put("prizeCount", prizeCount.get(open_phase));
         phaseInfo.put("openResult", currentLottery.get("open_result").toString().split(","));
         phaseInfo.put("openPhase", currentLottery.get("open_phase"));
         phaseInfo.put("kjTime", difTime);//距离开奖时间
@@ -167,17 +178,26 @@ public class BetController extends BaseController{
     @RequestMapping(params = "accountMemberDataGrid")
     public void accountMemberDataGrid(BetOrderEntity betOrder,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
         betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
+        String date = request.getParameter("operatetime_begin");
+        String andStr = "";
+        if(date != null){
+            andStr = "and createtime between '"+date+" 00:00:00' and '"+date+" 23:59:59'";
+        }
         String sql ="select t.userid,t.username,SUM(amount) as amount,SUM(result) as result from t_bet_order t "
-                + "where t.username like '%"+betOrder.getUsername()+"%' "
+                + "where t.username like '%"+betOrder.getUsername()+"%' "+andStr
                 + "GROUP BY t.username,t.userid ";
         PageList pg = betOrderService.getPageListBySql(new HqlQuery(BetOrderEntity.class,
                 sql, dataGrid), true);
-        String[] fields = dataGrid.getField().split(",");
-        this.setListToJsonString(pg.getCount(), pg.getResultList(),null, true, response);
+        String totalSql = "select  SUM(amount) as amount,SUM(result) as result from t_bet_order t where t.username like '%"+betOrder.getUsername()+"%' "+andStr;
+        Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
+        this.setListToJsonString(pg.getCount(), totalMap.get("amount").toString(),
+                totalMap.get("result").toString(),pg.getResultList(),null, true, response);
     }
     
     @RequestMapping(params = "accountMember")
     public String accountMember(HttpServletRequest request) {
+        String totalSql = "select  SUM(amount) as amount,SUM(result) as result from t_bet_order";
+        request.setAttribute("total", betOrderService.findOneForJdbc(totalSql)); 
         return "bet/memberAccount";
     }
     @RequestMapping(params ="phaseHistory")
