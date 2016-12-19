@@ -119,9 +119,11 @@ public class BetController extends BaseController{
     public String comfirmBetOrder(){
         return "website/main/comfirmBetOrder";
     }
-    @RequestMapping(params="betOrder")
+    @RequestMapping(params="betConf")
     @ResponseBody
-    public AjaxJson betOrder(HttpServletRequest request){
+    public AjaxJson betConf(HttpServletRequest request){
+    	
+    	
         AjaxJson result = new AjaxJson();
         long kjTime = DateUtils.str2Date(RefreshLotteryTask.currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
         if((kjTime-BetController.FP_TIME)<System.currentTimeMillis()){

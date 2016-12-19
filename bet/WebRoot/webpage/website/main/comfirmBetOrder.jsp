@@ -75,8 +75,8 @@
 	});
 	function betOrder(){
 		var betList = window.localStorage.getItem("betList");
-		console.log(betList)
-		mui.ajax('betController.do?betOrder',{
+		console.log(betList);
+		mui.ajax('betController.do?betConf',{
 			data:{betList:betList},
 			dataType:'json',//服务器返回json格式数据
 			type:'post',//HTTP请求类型
