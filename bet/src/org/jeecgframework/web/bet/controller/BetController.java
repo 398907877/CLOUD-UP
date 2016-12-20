@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2005, 2016, EVECOM Technology Co.,Ltd. All rights reserved.
+ * EVECOM PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ *
+ */
 package org.jeecgframework.web.bet.controller;
 
 import java.text.SimpleDateFormat;
@@ -69,18 +74,8 @@ public class BetController extends BaseController{
         if((kjTime-curTime)>6*60*1000){
             request.setAttribute("IS_STOP", "true");
         }
+        
         return "website/main/race-view";
-    }
-    
-    @RequestMapping(params="raceView2")
-    public String raceView2(HttpServletRequest request){
-        //request.setAttribute("phaseInfo", getPhaseInfo());
-        long kjTime = DateUtils.str2Date(RefreshLotteryTask.currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
-        long curTime = System.currentTimeMillis();
-        if((kjTime-curTime)>6*60*1000){
-            request.setAttribute("IS_STOP", "true");
-        }
-        return "website/main/race-view2";
     }
     @RequestMapping(params="getPhaseInfo")
     @ResponseBody
@@ -199,9 +194,6 @@ public class BetController extends BaseController{
                 sql, dataGrid), true);
 
         String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(result),0) as result from t_bet_order t where t.username like '%"+betOrder.getUsername()+"%' "+andStr;
-
-
-
 
 
 

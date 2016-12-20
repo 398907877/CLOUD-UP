@@ -19,7 +19,18 @@
 <t:datagrid name="memberAccount" title="会员盈亏表" actionUrl="betController.do?accountMemberDataGrid" onLoadSuccess="onLoadSuccess"
     fit="true" fitColumns="true" idField="userid" queryMode="group" sortName="username" sortOrder="desc">
 	<t:dgCol title="id" field="userid" hidden="true"></t:dgCol>
-	<t:dgCol title="common.username" sortable="true" field="username" query="true"></t:dgCol>
+	
+
+	
+	<t:dgCol title="登录账号" sortable="true" field="username" query="true"></t:dgCol>
+	
+	
+
+	
 	<t:dgCol title="投注额" field="amount" query="false"></t:dgCol>
 	<t:dgCol title="赢/输" field="result" query="false" ></t:dgCol>
+	
+		<t:dgCol title="用户名" field="realname"  ></t:dgCol>
+	
+			
 </t:datagrid>
