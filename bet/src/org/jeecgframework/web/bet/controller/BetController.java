@@ -73,8 +73,18 @@ public class BetController extends BaseController{
         if((kjTime-curTime)>6*60*1000){
             request.setAttribute("IS_STOP", "true");
         }
-        
         return "website/main/race-view";
+    }
+    
+    @RequestMapping(params="raceView2")
+    public String raceView2(HttpServletRequest request){
+        //request.setAttribute("phaseInfo", getPhaseInfo());
+        long kjTime = DateUtils.str2Date(RefreshLotteryTask.currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
+        long curTime = System.currentTimeMillis();
+        if((kjTime-curTime)>6*60*1000){
+            request.setAttribute("IS_STOP", "true");
+        }
+        return "website/main/race-view2";
     }
     @RequestMapping(params="getPhaseInfo")
     @ResponseBody
