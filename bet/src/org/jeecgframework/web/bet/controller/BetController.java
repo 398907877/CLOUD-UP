@@ -190,7 +190,7 @@ public class BetController extends BaseController{
                 + "GROUP BY t.username,t.userid ";
         PageList pg = betOrderService.getPageListBySql(new HqlQuery(BetOrderEntity.class,
                 sql, dataGrid), true);
-        String totalSql = "select  SUM(amount) as amount,SUM(result) as result from t_bet_order t where t.username like '%"+betOrder.getUsername()+"%' "+andStr;
+        String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(result),0) as result from t_bet_order t where t.username like '%"+betOrder.getUsername()+"%' "+andStr;
         Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
         this.setListToJsonString(pg.getCount(), totalMap.get("amount").toString(),
                 totalMap.get("result").toString(),pg.getResultList(),null, true, response);
@@ -198,7 +198,7 @@ public class BetController extends BaseController{
     
     @RequestMapping(params = "accountMember")
     public String accountMember(HttpServletRequest request) {
-        String totalSql = "select  SUM(amount) as amount,SUM(result) as result from t_bet_order";
+        String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(result),0) as result from t_bet_order";
         request.setAttribute("total", betOrderService.findOneForJdbc(totalSql)); 
         return "bet/memberAccount";
     }
