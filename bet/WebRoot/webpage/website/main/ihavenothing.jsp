@@ -24,7 +24,15 @@
 		</header>
 		<div class="mui-content">
 			<br/><br/><br/><br/><br/>
-		<h4   style="color: green">本软件仅供开发学习交流，不得用于任何商业行为及赌博等违法行为。否则产生的一切后果由使用者本人承担。</h4>
+			
+
+<blockquote>
+		<p   style=";font-weight:bold;color:red;">
+		本软件仅供开发学习交流，不得用于任何商业行为及赌博等违法行为。否则产生的一切后果由使用者本人承担。
+		</p>
+		</blockquote>
+		
+		
 		</div>
 		<script src="plug-in/mui/js/mui.min.js"></script>
 		<script src="plug-in/mui/js/mui.enterfocus.js"></script>
