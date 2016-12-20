@@ -28,6 +28,7 @@ import org.jeecgframework.core.util.JSONHelper;
 import org.jeecgframework.core.util.ResourceUtil;
 import org.jeecgframework.tag.core.easyui.TagUtil;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
+import org.jeecgframework.web.bet.entity.QueryyingleEntity;
 import org.jeecgframework.web.bet.job.RefreshLotteryTask;
 import org.jeecgframework.web.bet.service.BetOrderServiceI;
 import org.jeecgframework.web.system.pojo.base.TSUser;
@@ -182,18 +183,29 @@ public class BetController extends BaseController{
         betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
         String date = request.getParameter("operatetime_begin");
         String andStr = "";
-        if(date != null){
+        if((date!=null)&&(date!="")){
             andStr = "and createtime between '"+date+" 00:00:00' and '"+date+" 23:59:59'";
         }
-        String sql ="select t.userid,t.username,SUM(amount) as amount,SUM(result) as result from t_bet_order t "
+        String sql ="select  u1.*,u2.realname from (select t.userid,t.username,SUM(amount) as amount,SUM(result) as result from t_bet_order t "
                 + "where t.username like '%"+betOrder.getUsername()+"%' "+andStr
-                + "GROUP BY t.username,t.userid ";
-        PageList pg = betOrderService.getPageListBySql(new HqlQuery(BetOrderEntity.class,
+                + "GROUP BY t.username,t.userid   " +
+                ")as u1  left  join t_s_base_user u2 on  u1.userid=u2.ID";
+        PageList pg = betOrderService.getPageListBySql(new HqlQuery(QueryyingleEntity.class,
                 sql, dataGrid), true);
+
         String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(result),0) as result from t_bet_order t where t.username like '%"+betOrder.getUsername()+"%' "+andStr;
+
+
+
         Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
-        this.setListToJsonString(pg.getCount(), totalMap.get("amount").toString(),
-                totalMap.get("result").toString(),pg.getResultList(),null, true, response);
+        pg.getCount();
+        pg.getResultList();
+        pg.getResultList();
+        totalMap.get("amount");
+        totalMap.get("result");
+        
+        this.setListToJsonString(pg.getCount(), totalMap.get("amount")==null?"0":totalMap.get("amount").toString(),
+                totalMap.get("result")==null?"0":totalMap.get("result").toString(),pg.getResultList(),null, true, response);
     }
     
     @RequestMapping(params = "accountMember")
