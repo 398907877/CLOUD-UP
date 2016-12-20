@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2005, 2016, EVECOM Technology Co.,Ltd. All rights reserved.
- * EVECOM PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
- *
- */
 package org.jeecgframework.web.bet.controller;
 
 import java.text.SimpleDateFormat;
@@ -204,6 +199,9 @@ public class BetController extends BaseController{
                 sql, dataGrid), true);
 
         String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(result),0) as result from t_bet_order t where t.username like '%"+betOrder.getUsername()+"%' "+andStr;
+
+
+
 
 
 

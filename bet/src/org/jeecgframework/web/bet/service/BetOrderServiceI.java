@@ -1,6 +1,7 @@
 package org.jeecgframework.web.bet.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.jeecgframework.core.common.service.CommonService;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
@@ -15,4 +16,6 @@ public interface BetOrderServiceI extends CommonService{
     public int saveBetOrders(List<BetOrderEntity> betOrders);
     
     public void betAccount();
+    
+    public Map<String, Object> getGameList(String game);
 }

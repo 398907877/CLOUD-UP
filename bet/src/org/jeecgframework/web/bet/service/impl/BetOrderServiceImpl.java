@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +19,7 @@ import org.jeecgframework.web.bet.entity.PointDetailEntity;
 import org.jeecgframework.web.bet.job.RefreshLotteryTask;
 import org.jeecgframework.web.system.manager.ClientManager;
 import org.jeecgframework.web.system.pojo.base.Client;
+import org.jeecgframework.web.system.pojo.base.TSType;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 
 @Service("betOrderService")
@@ -124,5 +127,31 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
                 }
             }
         }
+    }
+
+    /**
+     * 描述
+     * @author John Zhang
+     * @created 2016年12月20日 下午10:02:09
+     * @return
+     * @see org.jeecgframework.web.bet.service.BetOrderServiceI#getGameList()
+     */
+    @Override
+    public Map<String, Object> getGameList(String game) {
+        Map<String, Object> result = new HashMap<String, Object>();
+        if("1".equals(game)){
+            for(int i=0;i<10;i++){
+                List<TSType> types = this.findHql("select t from TSType t where t.TSTypegroup.typegroupcode =?", "RANKING"+(i+1));
+                result.put(types.get(0).getTSTypegroup().getTypegroupname(), types);
+            }
+        }else if("2".equals(game)){
+            for(int i=0;i<10;i++){
+                List<TSType> types = this.findHql("select t from TSType t where t.TSTypegroup.typegroupcode =?", "TWO"+(i+1));
+                result.put(types.get(0).getTSTypegroup().getTypegroupname(), types);
+            }
+        }else if("3".equals(game)){
+            result.put("TOP2", this.findHql("select t from TSType t where t.TSTypegroup.typegroupcode =?", "TOP2"));
+        }
+        return result;
     }
 }
