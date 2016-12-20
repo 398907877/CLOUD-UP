@@ -198,11 +198,7 @@ public class BetController extends BaseController{
 
 
         Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
-        pg.getCount();
-        pg.getResultList();
-        pg.getResultList();
-        totalMap.get("amount");
-        totalMap.get("result");
+
         
         this.setListToJsonString(pg.getCount(), totalMap.get("amount")==null?"0":totalMap.get("amount").toString(),
                 totalMap.get("result")==null?"0":totalMap.get("result").toString(),pg.getResultList(),null, true, response);
