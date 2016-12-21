@@ -31,12 +31,12 @@
 <t:datagrid name="userList" title="common.operation" actionUrl="userController.do?datagrid" 
     fit="true" fitColumns="true" idField="id" queryMode="group" sortName="createDate" sortOrder="desc">
 	<t:dgCol title="common.id" field="id" hidden="true"></t:dgCol>
-	<t:dgCol title="common.username" sortable="false" field="userName" query="true"></t:dgCol>
+	<t:dgCol title="登录账号" sortable="false" field="userName" query="true"></t:dgCol>
     <%--update-start--Author:zhangguoming  Date:20140827 for：通过用户对象的关联属性值获取组织机构名称（多对多关联）--%>
 	<%--<t:dgCol title="common.department" field="TSDepart_id" query="true" replace="${departsReplace}"></t:dgCol>--%>
 	<t:dgCol title="common.department" sortable="false" field="userOrgList.tsDepart.departname" query="false"></t:dgCol>
     <%--update-end--Author:zhangguoming  Date:20140827 for：通过用户对象的关联属性值获取组织机构名称（多对多关联）--%>
-	<t:dgCol title="common.real.name" field="realName" query="false"></t:dgCol>
+	<t:dgCol title="用户名" field="realName" query="false"></t:dgCol>
 	<t:dgCol title="积分" field="point" query="false"></t:dgCol>
 	<t:dgCol title="common.role" field="userKey" ></t:dgCol>
 	<t:dgCol title="common.createby" field="createBy" hidden="true"></t:dgCol>
