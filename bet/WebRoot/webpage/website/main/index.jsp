@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<h1 class="mui-title">首页</h1>
 		</header>
 		<nav class="mui-bar mui-bar-tab">
-			<a class="mui-tab-item mui-active" href="#tabbar">
+			<a id="index" class="mui-tab-item mui-active" href="#index-content">
 				<span class="mui-icon mui-icon-home"></span>
 				<span class="mui-tab-label">首页</span>
 			</a>
@@ -79,13 +79,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="mui-icon mui-icon-email"></span>
 				<span class="mui-tab-label">消息</span>
 			</a>
-			<a  id="my" class="mui-tab-item" href="#tabbar-with-map">
+			<a  id="my" class="mui-tab-item" href="#my-content">
 				<span class="mui-icon mui-icon-gear"></span>
 				<span class="mui-tab-label">我的</span>
 			</a>
 		</nav>
 		<div class="mui-content">
-			<div id="tabbar" class="mui-control-content mui-active">
+			<div id="index-content" class="mui-control-content mui-active">
 			<div id="Gallery" class="mui-slider" style="margin-top:15px;">
 				<div class="mui-slider-group">
 		
@@ -168,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div id="tabbar-with-chat" class="mui-control-content">
 			
 			</div>
-			<div id="tabbar-with-map" class="mui-control-content mui-page">
+			<div id="my-content" class="mui-control-content mui-page">
 						<ul class="mui-table-view mui-table-view-chevron">
 							<li class="mui-table-view-cell mui-media">
 								<a class="mui-navigate-right" href="#account">
@@ -182,12 +182,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</ul>
 						<ul class="mui-table-view mui-table-view-chevron">
 							<li class="mui-table-view-cell">
-								<a href="#account" class="mui-navigate-right">账号与安全</a>
+								<a href="userController.do?changepwd" class="mui-navigate-right">修改密码</a>
 							</li>
 						</ul>
 						<ul class="mui-table-view mui-table-view-chevron">
 							<li class="mui-table-view-cell">
-								<a href="#notifications" class="mui-navigate-right">新消息通知</a>
+								<a href="#notifications" class="mui-navigate-right">消息通知</a>
 							</li>
 							<li class="mui-table-view-cell">
 								<a href="#privacy" class="mui-navigate-right">隐私</a>
@@ -207,15 +207,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 
 <script type="text/javascript">
-
-
-
-
-	
 var btn = document.getElementById("my");
 //监听点击事件
 btn.addEventListener("tap",function () {
-
 
 	var userid = "${LOCAL_CLINET_USER.id}";
 
@@ -235,7 +229,19 @@ $("#point").html("积分："+msg.wujiajun);
 });
 //触发submit按钮的点击事件
 mui.trigger(btn,'tap');
-
+mui.ready(function(){
+	var tabname = localStorage.getItem("maintab");
+	if(tabname != null){
+		var current = document.getElementById(tabname);
+		var defaultTab =  document.getElementById("index");
+		if(defaultTab != current){
+			current.classList.add('mui-active');
+			defaultTab.classList.remove('mui-active');
+			document.getElementById("index-content").classList.remove('mui-active');
+			document.getElementById(tabname+"-content").classList.add('mui-active');
+		}
+	}
+});
 
 
 </script>

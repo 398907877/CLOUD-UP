@@ -234,7 +234,17 @@ public class UserController extends BaseController {
         }
         return j;
     }
-    
+    /**
+     * 修改密码
+     * 
+     * @return
+     */
+    @RequestMapping(params = "changepwd")
+    public String changepwd(HttpServletRequest request) {
+        TSUser user = ResourceUtil.getSessionUserName();
+        request.setAttribute("user", user);
+        return "website/user/changepwd";
+    }
 	/**
 	 * 修改密码
 	 * 
