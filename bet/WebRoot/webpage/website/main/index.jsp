@@ -240,6 +240,7 @@ mui.ready(function(){
 			document.getElementById("index-content").classList.remove('mui-active');
 			document.getElementById(tabname+"-content").classList.add('mui-active');
 		}
+		localStorage.removeItem("maintab");
 	}
 });
 
