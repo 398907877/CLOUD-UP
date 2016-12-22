@@ -5,7 +5,7 @@
     $(function() {
 	});
     function formattGame(value,row){
-    	if(value == "q"){
+    	if(value == "1"){
     		return "排名竞猜";
     	}else if(value=="2"){
     		return "冠亚组合";
