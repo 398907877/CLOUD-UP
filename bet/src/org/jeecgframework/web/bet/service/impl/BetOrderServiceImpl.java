@@ -121,8 +121,12 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
                             } else {
                                 column = "top2";
                             }
-                            if (order.getTarget().contains(pa.get(column).toString())) {
+                            if (order.getTarget().contains(pa.get(column).toString()) && !column.equals("top2")) {
                                 isWin = true;
+                            }else{
+                                if(order.getTarget().equals(pa.get(column).toString())){
+                                    isWin = true;
+                                }
                             }
                         } else {// 两面盘结算
                             column = "ranking" + order.getType();
