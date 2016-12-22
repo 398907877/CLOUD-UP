@@ -69,8 +69,19 @@
 							<c:if test="${b.type == '2'}">
 								<c:set var="type" value="亚军"></c:set>
 							</c:if>
+							<c:if test="${b.game == '2'}">
+								<c:set var="type" value="冠亚和"></c:set>
+								<c:set var="game" value="冠亚组合"></c:set>
+							</c:if>
+							<c:if test="${b.game == '1'}">
+								<c:set var="game" value="排名竞猜"></c:set>
+							</c:if>
+							<c:if test="${b.game == '3'}">
+								<c:set var="game" value="两面盘"></c:set>
+							</c:if>
 							<div class="mui-input-row">第${b.phase}期</div>
-							<div class="mui-input-row">${type }[<span class="mui-badge-ext mui-badge-${b.target }">${b.target }</span>] &nbsp; <span class="odds">&nbsp;@${b.odds }</span></div>
+							<div class="mui-input-row">${game}</div>
+							<div class="mui-input-row">${type }[<span class="mui-badge-ext <c:if test="${ b.game=='1' }">mui-badge-${b.target }</c:if>">${b.target }</span>] &nbsp; <span class="odds">&nbsp;@${b.odds }</span></div>
 							<div class="mui-input-row">下注额：${b.amount }</div>
 							<div class="mui-input-row">可赢额：${b.winamount }</div>
 						</div>
@@ -89,16 +100,21 @@
 						<a class="mui-navigate-right">
 							注单号:${b.id }
 						</a>
-						<c:set var="type" value="第${b.type }名"></c:set>
-							<c:if test="${b.type == '1'}">
-								<c:set var="type" value="冠军"></c:set>
-							</c:if>
-							<c:if test="${b.type == '2'}">
-								<c:set var="type" value="亚军"></c:set>
-							</c:if>
 						<div class="mui-collapse-content ">
+						<c:set var="type" value="第${b.type }名"></c:set>
+							<c:if test="${b.game == '2'}">
+								<c:set var="type" value="冠亚和"></c:set>
+								<c:set var="game" value="冠亚组合"></c:set>
+							</c:if>
+							<c:if test="${b.game == '1'}">
+								<c:set var="game" value="排名竞猜"></c:set>
+							</c:if>
+							<c:if test="${b.game == '3'}">
+								<c:set var="game" value="两面盘"></c:set>
+							</c:if>
 							<div class="mui-input-row">第${b.phase}期</div>
-							<div class="mui-input-row">${type }[<span class="mui-badge-ext mui-badge-${b.target }">${b.target }</span>] &nbsp; <span class="odds">&nbsp;@${b.odds }</span></div>
+							<div class="mui-input-row">${game}</div>
+							<div class="mui-input-row">${type }[<span class="mui-badge-ext <c:if test="${ b.game=='1' }">mui-badge-${b.target }</c:if>">${b.target }</span>] &nbsp; <span class="odds">&nbsp;@${b.odds }</span></div>
 							<div class="mui-input-row">下注额：${b.amount }</div>
 							<div class="mui-input-row">可赢额：${b.winamount }</div>
 							<div class="mui-input-row">赢/输：<span class="win-span-${b.resulttype }">${b.result }</span></div>

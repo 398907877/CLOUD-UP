@@ -93,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="mui-slider-item">
 						<ul class="mui-table-view mui-grid-view mui-grid-9">
 							<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
-								<a href="betController.do?raceView">
+								<a href="betController.do?raceView2">
 									<span class="mui-icon-extra mui-icon mui-icon-extra-grech"></span>
 									<div class="mui-media-body">赛车排名</div>
 								</a>

@@ -8,11 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.jeecgframework.web.system.pojo.base.TSTypegroup;
+
 import javax.persistence.SequenceGenerator;
 
 /**   
@@ -44,7 +48,19 @@ public class PointDetailEntity implements java.io.Serializable {
 	/**createuser*/
 	private java.lang.String createuser;
 	
-	/**
+	private BetOrderEntity betOrder;
+	
+	@OneToOne
+    @JoinColumn(name = "orderid")
+	public BetOrderEntity getBetOrder() {
+        return betOrder;
+    }
+
+    public void setBetOrder(BetOrderEntity betOrder) {
+        this.betOrder = betOrder;
+    }
+
+    /**
 	 *方法: 取得java.lang.Integer
 	 *@return: java.lang.Integer  id
 	 */

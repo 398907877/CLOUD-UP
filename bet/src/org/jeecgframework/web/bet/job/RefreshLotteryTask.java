@@ -7,6 +7,7 @@ package org.jeecgframework.web.bet.job;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -19,9 +20,11 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
+import org.jeecgframework.core.util.DateUtils;
 import org.jeecgframework.core.util.JSONHelper;
 import org.jeecgframework.core.util.LogUtil;
 import org.jeecgframework.web.bet.entity.BetPhaseEntity;
+import org.jeecgframework.web.bet.entity.PhaseAnalyseEntity;
 import org.jeecgframework.web.bet.service.BetPhaseServiceI;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -74,6 +77,7 @@ public class RefreshLotteryTask {
                        phase.setResult(currentLottery.get("open_result").toString());
                        phase.setPhase(Integer.valueOf(currentLottery.get("open_phase").toString()));
                        betPhaseService.save(phase);
+                       analysePhase(phase);
                    }
                    currentLottery.put("IS_INSERT", "true");
                }
@@ -83,5 +87,39 @@ public class RefreshLotteryTask {
             e.printStackTrace();
         }
         LogUtil.info("===================刷新开奖信息定时任务结束===================");
+    }
+    
+    private void analysePhase(BetPhaseEntity phase){
+        PhaseAnalyseEntity pa = new PhaseAnalyseEntity();
+        pa.setPhase(phase.getPhase());
+        pa.setOpentime(DateUtils.str2Date(phase.getOpentime(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")));
+        String[] result = phase.getResult().split(",");
+        pa.setRanking1(Integer.valueOf(result[0]).toString());
+        pa.setRanking2(Integer.valueOf(result[1]).toString());
+        pa.setRanking3(Integer.valueOf(result[2]).toString());
+        pa.setRanking4(Integer.valueOf(result[3]).toString());
+        pa.setRanking5(Integer.valueOf(result[4]).toString());
+        pa.setRanking6(Integer.valueOf(result[5]).toString());
+        pa.setRanking7(Integer.valueOf(result[6]).toString());
+        pa.setRanking8(Integer.valueOf(result[7]).toString());
+        pa.setRanking9(Integer.valueOf(result[8]).toString());
+        pa.setRanking10(Integer.valueOf(result[9]).toString());
+        int gyh = Integer.valueOf(result[0])+Integer.valueOf(result[1]);
+        pa.setTop2(String.valueOf(gyh));
+        String top2d = gyh%2==0?"双":"单";
+        String top2b = gyh>=12?"大":"小";
+        pa.setTop2b(top2b);
+        pa.setTop2d(top2d);
+        String ranking1lh = Integer.valueOf(result[0])>Integer.valueOf(result[9])?"龙":"虎";
+        String ranking2lh = Integer.valueOf(result[1])>Integer.valueOf(result[8])?"龙":"虎";
+        String ranking3lh = Integer.valueOf(result[2])>Integer.valueOf(result[7])?"龙":"虎";
+        String ranking4lh = Integer.valueOf(result[3])>Integer.valueOf(result[6])?"龙":"虎";
+        String ranking5lh = Integer.valueOf(result[4])>Integer.valueOf(result[5])?"龙":"虎";
+        pa.setRanking1lh(ranking1lh);
+        pa.setRanking2lh(ranking2lh);
+        pa.setRanking3lh(ranking3lh);
+        pa.setRanking4lh(ranking4lh);
+        pa.setRanking5lh(ranking5lh);
+        betPhaseService.saveOrUpdate(pa);
     }
 }

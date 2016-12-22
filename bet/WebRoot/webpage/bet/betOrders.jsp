@@ -4,17 +4,24 @@
 <script>
     $(function() {
 	});
-    function formattGame(value){
-    	if(value == 1){
+    function formattGame(value,row){
+    	if(value == "q"){
     		return "排名竞猜";
+    	}else if(value=="2"){
+    		return "冠亚组合";
+    	}else{
+    		return "两面盘"
     	}
     }
-    function formattType(value){
-    	if(value == 1){
-    		return "冠军";
+    function formattType(value,row){
+    	if(row.game==2){
+    		return "冠亚和"
     	}
     	if(value == 1){
     		return "冠军";
+    	}
+    	if(value == 2){
+    		return "亚军";
     	}
     	return "第"+value+"名";
     }

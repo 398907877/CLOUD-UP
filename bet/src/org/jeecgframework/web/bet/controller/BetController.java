@@ -1,5 +1,7 @@
 package org.jeecgframework.web.bet.controller;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,6 +74,20 @@ public class BetController extends BaseController{
         
         return "website/main/race-view";
     }
+    
+    @RequestMapping(params="raceView2")
+    public String raceView2(HttpServletRequest request){
+        request.setAttribute("phaseInfo", getPhaseInfo());
+        long kjTime = DateUtils.str2Date(RefreshLotteryTask.currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
+        long curTime = System.currentTimeMillis();
+        if((kjTime-curTime)>6*60*1000){
+            request.setAttribute("IS_STOP", "true");
+        }
+        request.setAttribute("RANKING", betOrderService.getGameList("1"));
+        request.setAttribute("TOP2", betOrderService.getGameList("2"));
+        request.setAttribute("TWO", betOrderService.getGameList("3"));
+        return "website/main/race-view2";
+    }
     @RequestMapping(params="getPhaseInfo")
     @ResponseBody
     public Map<String, Object> phaseInfo(){
@@ -118,8 +134,6 @@ public class BetController extends BaseController{
     @RequestMapping(params="betConf")
     @ResponseBody
     public AjaxJson betConf(HttpServletRequest request){
-    	
-    	
         AjaxJson result = new AjaxJson();
         long kjTime = DateUtils.str2Date(RefreshLotteryTask.currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
         if((kjTime-BetController.FP_TIME)<System.currentTimeMillis()){
@@ -137,6 +151,12 @@ public class BetController extends BaseController{
                 result.setSuccess(false);
             }else if(i==2){
                 result.setMsg("您的积分不足，请返回重新投注！");
+                result.setSuccess(false);
+            }else if(i==3){
+                result.setMsg("您的投注内容有误，请返回重新投注！");
+                result.setSuccess(false);
+            }else if(i==4){
+                result.setMsg("您的投注额有误，请返回重新投注！");
                 result.setSuccess(false);
             }
         } catch (Exception e) {
@@ -167,6 +187,44 @@ public class BetController extends BaseController{
         cq.add();
         betOrderService.getDataGridReturn(cq, true);
         TagUtil.datagrid(response, dataGrid);
+    }
+    
+    @RequestMapping(params = "betOrdersDataGridAll")
+    public void betOrdersDataGridAll(BetOrderEntity betOrder,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
+        betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
+        CriteriaQuery cq = new CriteriaQuery(BetOrderEntity.class, dataGrid);
+        HqlGenerateUtil.installHql(cq, betOrder);
+        String operatetime_begin = request.getParameter("createtime_begin");
+        if(operatetime_begin != null) {
+            Timestamp beginValue = null;
+            try {
+                beginValue = DateUtils.parseTimestamp(operatetime_begin, "yyyy-MM-dd");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            cq.ge("createtime", beginValue);
+        }
+        String operatetime_end = request.getParameter("createtime_end");
+        if(operatetime_end != null) {
+            if (operatetime_end.length() == 10) {
+                operatetime_end =operatetime_end + " 23:59:59";
+            }
+            Timestamp endValue = null;
+            try {
+                endValue = DateUtils.parseTimestamp(operatetime_end, "yyyy-MM-dd hh:mm:ss");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            cq.le("createtime", endValue);
+        }
+        cq.add();
+        betOrderService.getDataGridReturn(cq, true);
+        TagUtil.datagrid(response, dataGrid);
+    }
+    
+    @RequestMapping(params = "betOrdersAll")
+    public String betOrdersAll(HttpServletRequest request) {
+        return "bet/betOrdersAll";
     }
     
     @RequestMapping(params = "betOrders")

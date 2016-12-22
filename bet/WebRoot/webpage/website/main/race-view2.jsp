@@ -42,6 +42,12 @@
 				font-weight:bold;
 				text-align: center;
 			}
+			#sliderSegmentedControl .mui-control-item{
+				line-height:30px;
+			}
+			 .mui-control-content{
+				min-height:450px;
+			}
 		</style>
 	</head>
 	<body>
@@ -68,1389 +74,149 @@
 				<span class="info-title">距开奖:</span>
 				<span class="time kj-time">--:--</span>
 			</div>
-			<div class="mui-table-view">
-				<ul class="mui-table-view">
-					<li class="mui-table-view-cell mui-collapse li-bet" index="0"><a class="mui-navigate-right" href="#">冠军</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm1">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				
-						</form>
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted mui-segmented-control-negative">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+						排名竞猜
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						冠亚组合
+					</a>
+					<a class="mui-control-item" href="#item3mobile">
+						两面盘
+					</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<form action="" class="form1">
+										<div class="mui-table-view">
+											<ul class="mui-table-view">
+											<c:forEach items="${RANKING }" var="r" varStatus="s">
+												<li class="mui-table-view-cell mui-collapse li-bet" index="${s.index }">
+													<a class="mui-navigate-right" href="#">${r.key }</a>
+													<div class="mui-collapse-content" style="padding-top: 5px;">
+														<div class="mui-table-view-divider">
+								        					<div class="bet-row-xs-3">
+								        						赛道
+								        					</div>
+								        					<div class="bet-row-xs-4">
+								        						赔率
+								        					</div>
+								        					<div>
+								        						投注额
+								        					</div>
+	        											</div>
+        											<c:forEach items="${r.value }" var="ri">
+        											<div class="bet-row">
+							        					<div class="bet-row-xs-3">
+							        						<span class="mui-badge mui-badge-${ri.typecode }">${ri.typecode }</span>
+							        					</div>
+							        					<div class="bet-row-xs-4">
+							        						<span class="odds">${ri.typename }</span>
+							        					</div>
+							        					<div>
+							        						<input type="hidden" class="type" value="${s.index+1 }" name="type">
+							        						<input class="bet-amount" onkeyup="isInteger(this)"
+							        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
+							        					</div>
+        											</div>
+        											</c:forEach>
+        												</div>
+        										</li>
+        										</c:forEach>
+        										</div>
+										</ul>
+								</form>
+							</div>
 						</div>
-					</li>
-					<li class="mui-table-view-cell mui-collapse li-bet" index="1"><a class="mui-navigate-right" href="#">亚军</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm2">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				
-						</form>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<form class="form2">
+										<div class="mui-table-view-divider">
+								        	<div class="bet-row-xs-3">
+								        		冠亚和
+								        	</div>
+								        	<div class="bet-row-xs-4">
+								        		赔率
+								        	</div>
+								        	<div>
+								        		投注额
+								        	</div>
+								        </div>
+								        <c:forEach items="${TOP2 }" var="top">
+								        <c:forEach items="${top.value }" var="t">
+								        <div class="bet-row">
+							        					<div class="bet-row-xs-3">
+							        						<span class="mui-badge ">${t.typecode }</span>
+							        					</div>
+							        					<div class="bet-row-xs-4">
+							        						<span class="odds">${t.typename }</span>
+							        					</div>
+							        					<div>
+							        					<input type="hidden" value="1" class="type" name="type">
+							        						<input class="bet-amount" onkeyup="isInteger(this)"
+							        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
+							        					</div>
+        											</div>
+	        							</c:forEach>
+									</c:forEach>
+								</form>
+							</div>
 						</div>
-					</li>
-					<li class="mui-table-view-cell mui-collapse li-bet" index="2"><a class="mui-navigate-right" href="#">第3名</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm3">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				
-						</form>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<form class="form3">
+								<div class="mui-table-view">
+									<ul class="mui-table-view">
+									<c:forEach items="${TWO }" var="two" varStatus="s">
+										<li class="mui-table-view-cell mui-collapse li-bet" index="${s.index }">
+											<a class="mui-navigate-right" href="#">${two.key }</a>
+											<div class="mui-collapse-content" style="padding-top: 5px;">
+													<div class="mui-table-view-divider">
+								        					<div class="bet-row-xs-3">
+								        						结果
+								        					</div>
+								        					<div class="bet-row-xs-4">
+								        						赔率
+								        					</div>
+								        					<div>
+								        						投注额
+								        					</div>
+	        											</div>
+	        										<c:forEach items="${two.value }" var="t">
+        											<div class="bet-row">
+							        					<div class="bet-row-xs-3">
+							        						<span class="mui-badge">${t.typecode }</span>
+							        					</div>
+							        					<div class="bet-row-xs-4">
+							        						<span class="odds">${t.typename }</span>
+							        					</div>
+							        					<div>
+							        						<input type="hidden" class="type" value="${s.index+1 }" name="type">
+							        						<input class="bet-amount" onkeyup="isInteger(this)"
+							        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
+							        					</div>
+        											</div>
+        											</c:forEach>
+											</div>
+										</li>
+									</c:forEach>
+									</ul>
+									</div>
+								</form>
+							</div>
 						</div>
-					</li>
-					<li class="mui-table-view-cell mui-collapse li-bet" index="3"><a class="mui-navigate-right" href="#">第4名</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm4">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-						</form>
-						</div>
-					</li>
-					<li class="mui-table-view-cell mui-collapse li-bet" index="4"><a class="mui-navigate-right" href="#">第5名</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm5">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				
-						</form>
-						</div>
-					</li>
-					<li class="mui-table-view-cell mui-collapse li-bet" index="5"><a class="mui-navigate-right" href="#">第6名</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm6">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				
-						</form>
-						</div>
-					</li>
-					<li class="mui-table-view-cell mui-collapse li-bet" index="6"><a class="mui-navigate-right" href="#">第7名</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm7">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				
-						</form>
-						</div>
-					</li>
-					<li class="mui-table-view-cell mui-collapse li-bet" index="7"><a class="mui-navigate-right" href="#">第8名</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm8">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				
-						</form>
-						</div>
-					</li>
-					<li class="mui-table-view-cell mui-collapse li-bet" index="8"><a class="mui-navigate-right" href="#">第9名</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm9">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				
-						</form>
-						</div>
-					</li>
-					<li class="mui-table-view-cell mui-collapse li-bet" index="9"><a class="mui-navigate-right" href="#">第10名</a>
-						<div class="mui-collapse-content" style="padding-top: 5px;">
-						<div class="mui-table-view-divider">
-        					<div class="bet-row-xs-3">
-        						赛道
-        					</div>
-        					<div class="bet-row-xs-4">
-        						赔率
-        					</div>
-        					<div>
-        						投注额
-        					</div>
-        				</div>
-        				<form id="betForm10">
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-1">1</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-2">2</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-3">3</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-4">4</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-5">5</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-6">6</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-7">7</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-8">8</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-9">9</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				<div class="bet-row">
-        					<div class="bet-row-xs-3">
-        						<span class="mui-badge mui-badge-10">10</span>
-        					</div>
-        					<div class="bet-row-xs-4">
-        						<span class="odds">9.7</span>
-        					</div>
-        					<div>
-        						<input class="bet-amount" onkeyup="isInteger(this)"
-        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
-        					</div>
-        				</div>
-        				
-						</form>
-						</div>
-					</li>
-				</ul>
+					</div>
+				</div>
 			</div>
+		
 			<div class="mui-button-row">
 						<!--<a onclick="confirmBetAmount('1')" class="mui-btn mui-btn-primary" >投注</a>-->
 						<a onclick="confirmBetAmount('1')"class="mui-btn mui-btn-primary" >投注</a>
@@ -1473,7 +239,7 @@
 	<script src="plug-in/mui/js/alarm.js"></script>
 	<script>
 		mui.init({
-			swipeBack:true //启用右滑关闭功能
+			swipeBack:false //启用右滑关闭功能
 		});
 		function refreshPhaseInfo(){
 			//请求 开奖信息  距离开奖时间 当前期数 上期结果  
@@ -1538,6 +304,9 @@
 			mui(".kj-time")[0].innerHTML=minute+":"+second;
 		},kj);
 		mui.ready(function(){
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
 			var comfirmSuccess = localStorage.getItem("comfirmSuccess");
 			if(comfirmSuccess == true || "true"==comfirmSuccess){
 				resetAmount();
@@ -1551,10 +320,14 @@
 				mui(".li-bet")[type].setAttribute("class",oldCls);
 			}
 			localStorage.removeItem("type");
-			localStorage.removeItem("betList");
+			localStorage.removeItem("rankingList");
+			localStorage.removeItem("twoList");
+			localStorage.removeItem("top2List");
+			<c:if test="${IS_STOP != 'true' }">
 			fpTimer.start();
 			kjTimer.start();
 			var refreshTimer = setInterval(refreshPhaseInfo,60000);
+			</c:if>
 		});
 		function isInteger(obj){
 			var value = obj.value;
@@ -1565,28 +338,36 @@
 			}
 		}
 		function confirmBetAmount(){
-			var betList = [];
-			var totalAmount = 0;
+			//var betList = [];
 			var fpTime = mui("#fpTime")[0].value;
 			if(parseInt(fpTime) <= 0){
 				mui.toast("已经封盘，不能进行投注。");
 				return;
 			}
-			for(var type=1;type<11;type++){
-				mui.each(mui("#betForm"+type+" .bet-amount"),function(index,item){
+			var isTz = false;
+			var rankingList = [];
+			var top2List = [];
+			var twoList = [];
+			for(var i=1;i<4;i++){
+				mui.each(mui(".form"+i+" .bet-amount"),function(index,item){
 					if(item.value != ""){
+						isTz = true;
 						var bet = {};
 						bet.amount = item.value;
-						bet.game = "1";
+						bet.game = i;
 						bet.phase = mui("#nextPhase")[0].value;
-						bet.type = type;
-						bet.odds = mui("#betForm"+type+" .odds")[index].innerHTML
-						bet.target=mui("#betForm"+type+" .mui-badge")[index].innerHTML;
-						var odds = parseFloat(mui("#betForm"+type+" .odds")[index].innerHTML);
+						bet.type = mui(".form"+i+" .type")[index].value
+						bet.target=mui(".form"+i+" .mui-badge")[index].innerHTML;
+						var odds = parseFloat(mui(".form"+i+" .odds")[index].innerHTML);
 						bet.odds = odds;
-						//bet.winAmount = odds*parseInt(item.value)-parseInt(item.value);
-						betList.push(bet);
-						totalAmount += parseInt(item.value);
+						//betList.push(bet);
+						if(i==1){
+							rankingList.push(bet);
+						}else if(i==2){
+							top2List.push(bet);
+						}else{
+							twoList.push(bet);
+						}
 					}
 				});
 			}
@@ -1594,12 +375,14 @@
 				mui.toast("您的积分不足，请修改投注积分！");
 				return;
 			} */
-			if(betList.length == 0){
+			if(!isTz){
 				mui.toast("您没有输入任何投注积分，请输入！");
 				return;
 			}
-			localStorage.setItem("betList",JSON.stringify(betList));
-			localStorage.setItem("type",mui(".mui-active")[0].getAttribute("index"));
+			localStorage.setItem("top2List",JSON.stringify(top2List));
+			localStorage.setItem("rankingList",JSON.stringify(rankingList));
+			localStorage.setItem("twoList",JSON.stringify(twoList));
+			//localStorage.setItem("type",mui(".mui-active")[0].getAttribute("index"));
 			mui.openWindow("betController.do?comfirmBetOrder","comfirm-bet");
 		}
 		function resetAmount(){
