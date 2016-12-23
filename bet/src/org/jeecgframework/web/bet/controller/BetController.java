@@ -51,7 +51,7 @@ public class BetController extends BaseController{
      */
     @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(BaseController.class);
-    public static final long FP_TIME = 30000;
+    public static final long FP_TIME = 50000;
     public static final long JG_TIME = 5*60*1000;
     private static final Map<String,Object> prizeCount = new HashMap<String,Object>();
     @Autowired
