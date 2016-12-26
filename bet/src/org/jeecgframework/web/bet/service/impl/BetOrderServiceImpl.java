@@ -56,7 +56,10 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
             betOrderEntity.setOdds(new BigDecimal(tstypes.get(0).getTypename()));
             Date currDate = new Date();
             BigDecimal amount = betOrderEntity.getAmount();
-            if(amount.compareTo(new BigDecimal(0))!=1){//投注额小于0
+            if(amount.compareTo(new BigDecimal(2))==-1){
+                return 4;
+            }
+            if(amount.compareTo(new BigDecimal(6000))==1){
                 return 4;
             }
             totalAmmount = totalAmmount.add(amount);
@@ -64,7 +67,7 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
             betOrderEntity.setWinamount(amount.multiply(betOrderEntity.getOdds()).subtract(amount));
             betOrderEntity.setState("1");
             betOrderEntity.setResulttype("");
-            betOrderEntity.setUserid(user.getId());
+            betOrderEntity.setUser(user);
             betOrderEntity.setUsername(user.getUserName());
             PointDetailEntity pointDetail = new PointDetailEntity();
             pointDetail.setAmount(amount.multiply(new BigDecimal(-1)));
@@ -155,12 +158,12 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
                             pointDetail.setAmount(point);
                             pointDetail.setCreatetime(new Date());
                             pointDetail.setCreateuser(order.getUsername());
-                            pointDetail.setCreateuserid(order.getUserid());
-                            pointDetail.setUserid(order.getUserid());
+                            pointDetail.setCreateuserid(order.getUser().getId());
+                            pointDetail.setUserid(order.getUser().getId());
                             pointDetail.setType("2");// 投注 赢钱
                             pointDetail.setBetOrder(order);
                             this.saveOrUpdate(pointDetail);
-                            TSUser user = this.get(TSUser.class, order.getUserid());
+                            TSUser user = this.get(TSUser.class, order.getUser().getId());
                             user.setPoint(user.getPoint().add(point));
                             this.saveOrUpdate(user);
                         } else {

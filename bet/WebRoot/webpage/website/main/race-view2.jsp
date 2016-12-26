@@ -333,8 +333,17 @@
 			var value = obj.value;
 			if(!isNaN(value)&& value!=0){
 				obj.value = Math.floor(value);
+				if(value > 6000){
+					obj.value = 6000;
+					mui.toast("最大投注额为6000！");
+				}
+				if(value < 2){
+					obj.value = 2;
+					mui.toast("最小投注额为2！");
+				}
 			}else{
 				obj.value = "";
+				mui.toast("投注额需为整数");
 			}
 		}
 		function confirmBetAmount(){

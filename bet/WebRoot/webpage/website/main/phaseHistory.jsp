@@ -36,8 +36,18 @@
 			<ul class="mui-table-view">
 				<c:forEach items="${phaseHistory }" var="p">
 					<li class="mui-table-view-cell">${p.phase }期
-					<c:set value="${fn:split(p.result,',') }" var="nums"></c:set>
-					<c:forEach items="${nums }" var="n"><span class="mui-badge-his mui-badge-<fmt:formatNumber type="number" value="${n }"></fmt:formatNumber>"><fmt:formatNumber type="number" value="${n }"></fmt:formatNumber></span></c:forEach>
+					<span class="mui-badge-his mui-badge-${p.ranking1 }">${p.ranking1 }</span>
+					<span class="mui-badge-his mui-badge-${p.ranking2 }">${p.ranking2 }</span>
+					<span class="mui-badge-his mui-badge-${p.ranking3 }">${p.ranking3 }</span>
+					<span class="mui-badge-his mui-badge-${p.ranking4 }">${p.ranking4 }</span>
+					<span class="mui-badge-his mui-badge-${p.ranking5 }">${p.ranking5 }</span>
+					<span class="mui-badge-his mui-badge-${p.ranking6 }">${p.ranking6 }</span>
+					<span class="mui-badge-his mui-badge-${p.ranking7 }">${p.ranking7 }</span>
+					<span class="mui-badge-his mui-badge-${p.ranking8 }">${p.ranking8 }</span>
+					<span class="mui-badge-his mui-badge-${p.ranking9 }">${p.ranking9 }</span>
+					<span class="mui-badge-his mui-badge-${p.ranking10 }">${p.ranking10 }</span>
+					<br />冠亚和：${p.top2 } -- ${p.top2b } -- ${p.top2d }
+					<br />1~5龙虎：${p.ranking1lh } -- ${p.ranking2lh } -- ${p.ranking3lh } -- ${p.ranking4lh } -- ${p.ranking5lh }
 					</li>
 				</c:forEach>
 			</ul>

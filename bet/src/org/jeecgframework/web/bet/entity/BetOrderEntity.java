@@ -8,11 +8,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.jeecgframework.web.system.pojo.base.TSUser;
+
 import javax.persistence.SequenceGenerator;
 
 /**   
@@ -54,7 +58,7 @@ public class BetOrderEntity implements java.io.Serializable {
 	/**createtime*/
 	private java.util.Date createtime;
 	/**userid*/
-	private java.lang.String userid;
+	private TSUser user;
 	private java.lang.String username;
 	
 	@Column(name ="USERNAME",nullable=true,length=32)
@@ -265,16 +269,17 @@ public class BetOrderEntity implements java.io.Serializable {
 	 *方法: 取得java.lang.Integer
 	 *@return: java.lang.Integer  userid
 	 */
-	@Column(name ="USERID",nullable=false,precision=10,scale=0)
-	public java.lang.String getUserid(){
-		return this.userid;
+	@ManyToOne
+	@JoinColumn(name="USERID",nullable=false)
+	public TSUser getUser(){
+		return this.user;
 	}
 
 	/**
 	 *方法: 设置java.lang.Integer
 	 *@param: java.lang.Integer  userid
 	 */
-	public void setUserid(java.lang.String userid){
-		this.userid = userid;
+	public void setUser(TSUser user){
+		this.user = user;
 	}
 }

@@ -30,6 +30,7 @@
     fit="true" fitColumns="true" idField="id" queryMode="group" sortName="username" sortOrder="desc">
 	<t:dgCol title="id" field="id" hidden="true"></t:dgCol>
 	<t:dgCol title="common.username" sortable="true" field="username" query="true"></t:dgCol>
+	<t:dgCol title="真实姓名" sortable="false" field="user.realname" query="false"></t:dgCol>
 	<t:dgCol title="期" field="phase"></t:dgCol>
 	<t:dgCol title="玩法" field="game" formatterjs="formattGame"></t:dgCol>
 	<t:dgCol title="类型" field="type" formatterjs="formattType"></t:dgCol>
