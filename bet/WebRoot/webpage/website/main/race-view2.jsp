@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+mui.toast("最大投注额为6000！");<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="/context/mytags.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -337,9 +337,9 @@
 					obj.value = 6000;
 					mui.toast("最大投注额为6000！");
 				}
-				if(value < 2){
-					obj.value = 2;
-					mui.toast("最小投注额为2！");
+				if(value < 1){
+					obj.value = 1;
+					mui.toast("最小投注额为1！");
 				}
 			}else{
 				obj.value = "";
