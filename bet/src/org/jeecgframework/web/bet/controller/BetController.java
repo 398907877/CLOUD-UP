@@ -25,6 +25,7 @@ import org.jeecgframework.core.util.JSONHelper;
 import org.jeecgframework.core.util.ResourceUtil;
 import org.jeecgframework.tag.core.easyui.TagUtil;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
+import org.jeecgframework.web.bet.entity.PointDetailEntity;
 import org.jeecgframework.web.bet.entity.QueryyingleEntity;
 import org.jeecgframework.web.bet.job.RefreshLotteryTask;
 import org.jeecgframework.web.bet.service.BetOrderServiceI;
@@ -220,6 +221,46 @@ public class BetController extends BaseController{
         cq.add();
         betOrderService.getDataGridReturn(cq, true);
         TagUtil.datagrid(response, dataGrid);
+    }
+    
+    @RequestMapping(params = "pointDetailDatagrid")
+    public void pointDetailDatagrid(PointDetailEntity pointDetail,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
+        pointDetail.setUsername(pointDetail.getUsername()==null?"":pointDetail.getUsername());
+        CriteriaQuery cq = new CriteriaQuery(PointDetailEntity.class, dataGrid);
+        HqlGenerateUtil.installHql(cq, pointDetail);
+        cq.eq("type", "0");
+        cq.add();
+        String operatetime_begin = request.getParameter("createtime_begin");
+        if(operatetime_begin != null) {
+            Timestamp beginValue = null;
+            try {
+                beginValue = DateUtils.parseTimestamp(operatetime_begin, "yyyy-MM-dd");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            cq.ge("createtime", beginValue);
+        }
+        String operatetime_end = request.getParameter("createtime_end");
+        if(operatetime_end != null) {
+            if (operatetime_end.length() == 10) {
+                operatetime_end =operatetime_end + " 23:59:59";
+            }
+            Timestamp endValue = null;
+            try {
+                endValue = DateUtils.parseTimestamp(operatetime_end, "yyyy-MM-dd hh:mm:ss");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            cq.le("createtime", endValue);
+        }
+        cq.add();
+        betOrderService.getDataGridReturn(cq, true);
+        TagUtil.datagrid(response, dataGrid);
+    }
+    
+    @RequestMapping(params = "pointDetails")
+    public String pointDetails(HttpServletRequest request) {
+        return "bet/pointDetails";
     }
     
     @RequestMapping(params = "betOrdersAll")

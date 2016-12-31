@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.jeecgframework.web.system.pojo.base.TSTypegroup;
 
 import javax.persistence.SequenceGenerator;
@@ -48,10 +50,15 @@ public class PointDetailEntity implements java.io.Serializable {
 	/**createuser*/
 	private java.lang.String createuser;
 	
+	private String username;
+	
+	private String realname;
+
 	private BetOrderEntity betOrder;
 	
 	@OneToOne
     @JoinColumn(name = "orderid")
+	@NotFound(action=NotFoundAction.IGNORE)
 	public BetOrderEntity getBetOrder() {
         return betOrder;
     }
@@ -175,4 +182,32 @@ public class PointDetailEntity implements java.io.Serializable {
 	public void setCreateuser(java.lang.String createuser){
 		this.createuser = createuser;
 	}
+
+	/**
+     *方法: 取得java.lang.String
+     *@return: java.lang.String  createuserid
+     */
+    @Column(name ="USERNAME",nullable=true,length=32)
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     *方法: 取得java.lang.String
+     *@return: java.lang.String  createuserid
+     */
+    @Column(name ="REALNAME",nullable=true,length=32)
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+	
+	
 }

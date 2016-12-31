@@ -77,6 +77,8 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
             pointDetail.setUserid(user.getId());
             pointDetail.setType("1");//投注
             pointDetail.setBetOrder(betOrderEntity);
+            pointDetail.setRealname(user.getRealName());
+            pointDetail.setUsername(user.getUserName());
             pointDetailList.add(pointDetail);
         }
         if (totalAmmount.compareTo(user.getPoint())==1) {
