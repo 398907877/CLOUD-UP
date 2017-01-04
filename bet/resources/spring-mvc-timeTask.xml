@@ -53,7 +53,19 @@
 
 	<bean id="refreshLotteryTaskCronTrigger" class="org.jeecgframework.core.timer.DataBaseCronTriggerBean">
 		<property name="jobDetail" ref="refreshLotteryTaskJob" />
-		<property name="cronExpression" value="0/2 * * * * ?" />
+		<property name="cronExpression" value="0/10 * 9-23 * * ?" />
+	</bean>
+	
+	<bean id="generateTodayPhaseJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="generateTodayPhase" />
+		<property name="targetMethod" value="run" />
+		<property name="concurrent" value="true" />
+	</bean>
+
+	<bean id="generateTodayPhaseJobCronTrigger" class="org.jeecgframework.core.timer.DataBaseCronTriggerBean">
+		<property name="jobDetail" ref="generateTodayPhaseJob" />
+		<property name="cronExpression" value="0/30 30-40 8 * * ?" />
 	</bean>
 	<bean id="orderAccountTaskJob"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
@@ -72,9 +84,10 @@
 		<property name="triggers">
 			<list>
 				<!-- <ref bean="taskDemoServiceTaskCronTrigger" />
-				<ref bean="smsSendTaskCronTrigger" /> -->
+				<ref bean="smsSendTaskCronTrigger" /> 
+				<ref bean="orderAccountTaskCronTrigger" />  -->
 				<ref bean="refreshLotteryTaskCronTrigger" />
-				<ref bean="orderAccountTaskCronTrigger" /> 
+				<ref bean="generateTodayPhaseJobCronTrigger" />
 			</list>
 		</property>
 	</bean>

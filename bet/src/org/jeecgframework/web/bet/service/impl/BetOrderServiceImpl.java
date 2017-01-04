@@ -103,7 +103,7 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
         List<BetOrderEntity> orders = this.findByProperty(BetOrderEntity.class, 
                 "state", "1");
         if (orders.size() > 0) {
-            for (BetOrderEntity order : orders) {//TODO 先按一种玩法结算
+            for (BetOrderEntity order : orders) {
                 List<BetPhaseEntity> phase = this.findByProperty(BetPhaseEntity.class,
                         "phase", Integer.valueOf(order.getPhase()));
                 if(phase.size() != 0){
@@ -111,6 +111,9 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
                         BetPhaseEntity p = phase.get(0);
                         Map<String, Object> pa = this.findOneForJdbc("select * from t_phase_analyse where phase=?",
                                 p.getPhase());
+                        if(p.getResult() == null || pa == null){
+                            return;
+                        }
                         String column = "";
                         boolean isWin = false;
                         if ("1".equals(order.getGame())) { // 排名结算

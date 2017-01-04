@@ -249,6 +249,9 @@ mui.toast("最大投注额为6000！");<%@ page language="java" contentType="tex
 				dataType:'json',//服务器返回json格式数据
 				type:'get',//HTTP请求类型
 				success:function(data){
+					if(!data.nextPhase || data.nextPhase == null){
+						window.location.reload(true);
+					}
 					mui("#fpTime")[0].value = data.fpTime;
 					mui("#nextPhase")[0].value = data.nextPhase;
 					clearInterval(fpTimer.flag);
@@ -294,7 +297,7 @@ mui.toast("最大投注额为6000！");<%@ page language="java" contentType="tex
             						 +"type='number' value='' name='amount' placeholder='' style='text-align:center' />分";
         	});
         	refreshPhaseInfo();
-        	mui.later(refreshPhaseInfo,20000);
+        	mui.later(refreshPhaseInfo,30000);
 		}
 		
 		var fpTimer = new Alarm(0,parseInt("${phaseInfo.fpTime}"),function(second,minute){

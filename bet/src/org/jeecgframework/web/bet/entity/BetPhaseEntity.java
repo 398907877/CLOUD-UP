@@ -35,7 +35,18 @@ public class BetPhaseEntity implements java.io.Serializable {
 	/**创建时间*/
 	private java.util.Date createtime;
 	
-	/**
+	private java.lang.String loadtime;
+	
+	@Column(name ="LOADTIME",nullable=true,length=32)
+	public java.lang.String getLoadtime() {
+        return loadtime;
+    }
+
+    public void setLoadtime(java.lang.String loadtime) {
+        this.loadtime = loadtime;
+    }
+
+    /**
 	 *方法: 取得java.lang.Integer
 	 *@return: java.lang.Integer  id
 	 */

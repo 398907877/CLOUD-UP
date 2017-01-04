@@ -25,8 +25,10 @@ import org.jeecgframework.core.util.JSONHelper;
 import org.jeecgframework.core.util.ResourceUtil;
 import org.jeecgframework.tag.core.easyui.TagUtil;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
+import org.jeecgframework.web.bet.entity.BetPhaseEntity;
 import org.jeecgframework.web.bet.entity.PointDetailEntity;
 import org.jeecgframework.web.bet.entity.QueryyingleEntity;
+import org.jeecgframework.web.bet.job.GenerateTodayPhase;
 import org.jeecgframework.web.bet.job.RefreshLotteryTask;
 import org.jeecgframework.web.bet.service.BetOrderServiceI;
 import org.jeecgframework.web.system.pojo.base.TSUser;
@@ -78,15 +80,18 @@ public class BetController extends BaseController{
     
     @RequestMapping(params="raceView2")
     public String raceView2(HttpServletRequest request){
-        request.setAttribute("phaseInfo", getPhaseInfo());
-        long kjTime = DateUtils.str2Date(RefreshLotteryTask.currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
-        long curTime = System.currentTimeMillis();
-        if((kjTime-curTime)>6*60*1000){
+        //long kjTime = DateUtils.str2Date(RefreshLotteryTask.currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
+        //long curTime = System.currentTimeMillis();
+        String  curTime = DateUtils.formatDate("HH:mm:ss");
+        if(curTime.compareTo(GenerateTodayPhase.START_TIME)<0||
+                curTime.compareTo(GenerateTodayPhase.END_TIME)>=0){
             request.setAttribute("IS_STOP", "true");
+        }else{
+            request.setAttribute("RANKING", betOrderService.getGameList("1"));
+            request.setAttribute("TOP2", betOrderService.getGameList("2"));
+            request.setAttribute("TWO", betOrderService.getGameList("3"));
+            request.setAttribute("phaseInfo", getPhaseInfo());
         }
-        request.setAttribute("RANKING", betOrderService.getGameList("1"));
-        request.setAttribute("TOP2", betOrderService.getGameList("2"));
-        request.setAttribute("TWO", betOrderService.getGameList("3"));
         return "website/main/race-view2";
     }
     @RequestMapping(params="getPhaseInfo")
@@ -102,27 +107,44 @@ public class BetController extends BaseController{
      */
     private Map<String, Object> getPhaseInfo(){
         Map<String,Object> phaseInfo = new HashMap<String, Object>();
-        Map<String,Object> currentLottery = RefreshLotteryTask.currentLottery;
-        long kjTime = DateUtils.str2Date(currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
+        /*Map<String,Object> currentLottery = RefreshLotteryTask.currentLottery;
+        */
+        String curtime = DateUtils.formatDate("yyyy-MM-dd HH:mm:ss");
+        List<Map<String,Object>> phases = betOrderService.findForJdbc("select * from t_bet_phase where opentime > ? order by opentime asc", curtime);
+        if(phases.size() <= 0){
+            return phaseInfo;
+        }
+        Map<String,Object> currentLottery = phases.get(0);
+        String currentphase = currentLottery.get("phase").toString();
+        String lastPhase= String.valueOf(Integer.valueOf(currentphase)-1);
+        Map<String,Object> lastLottery = betOrderService.findOneForJdbc("select * from t_bet_phase where phase = ?",
+                lastPhase);
+        if(lastLottery.get("result") == null){
+            lastPhase = String.valueOf(Integer.valueOf(lastPhase)-1);
+            lastLottery = betOrderService.findOneForJdbc("select * from t_bet_phase where phase = ?",
+                    lastPhase);
+        }
+        long kjTime = DateUtils.str2Date(currentLottery.get("opentime").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
         long curTime = System.currentTimeMillis();
         long difTime = 0;
-        if(kjTime <= curTime){
+        /*if(kjTime <= curTime){
             difTime = JG_TIME+kjTime-curTime;
-            phaseInfo.put("nextPhase", Integer.parseInt(currentLottery.get("next_phase").toString())+1); 
+            phaseInfo.put("nextPhase", Integer.parseInt(currentLottery.get("phase").toString())+2); 
         }else{
             difTime = kjTime - curTime;
             phaseInfo.put("nextPhase", currentLottery.get("next_phase"));
-        }
-        String open_phase = currentLottery.get("open_phase").toString();
-        if(prizeCount.get(open_phase) == null){
+        }*/
+        difTime = kjTime - curTime;
+        phaseInfo.put("nextPhase", currentLottery.get("phase"));
+        if(prizeCount.get(lastPhase) == null){
             prizeCount.clear();
             Random rand = new Random();  
             Integer p = rand.nextInt(200)+200;
-            prizeCount.put(open_phase, p);
+            prizeCount.put(lastPhase, p);
         }
-        phaseInfo.put("prizeCount", prizeCount.get(open_phase));
-        phaseInfo.put("openResult", currentLottery.get("open_result").toString().split(","));
-        phaseInfo.put("openPhase", currentLottery.get("open_phase"));
+        phaseInfo.put("prizeCount", prizeCount.get(lastPhase));
+        phaseInfo.put("openResult", lastLottery.get("result").toString().split(","));
+        phaseInfo.put("openPhase", lastLottery.get("phase"));
         phaseInfo.put("kjTime", difTime);//距离开奖时间
         phaseInfo.put("fpTime", difTime - FP_TIME);//封盘时间
         return phaseInfo;

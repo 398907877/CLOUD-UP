@@ -25,6 +25,7 @@ import org.jeecgframework.core.util.JSONHelper;
 import org.jeecgframework.core.util.LogUtil;
 import org.jeecgframework.web.bet.entity.BetPhaseEntity;
 import org.jeecgframework.web.bet.entity.PhaseAnalyseEntity;
+import org.jeecgframework.web.bet.service.BetOrderServiceI;
 import org.jeecgframework.web.bet.service.BetPhaseServiceI;
 import org.json.JSONObject;
 import org.json.JSONTokener;
@@ -41,12 +42,17 @@ import org.springframework.stereotype.Service;
 @Service("refreshLotteryTask")
 public class RefreshLotteryTask {
     public static final String URL = "http://c.apiplus.net/curly.do?token=e9e0077e87038c71&code=bjpk10&format=json";
+    
+    public static final String URL_NEWLY = "http://c.apiplus.net/newly.do?token=e9e0077e87038c71&code=bjpk10&format=json";
 
     @Autowired
     private BetPhaseServiceI betPhaseService;
     
+    @Autowired
+    private BetOrderServiceI betOrderSerivce;
+    
     public static final Map<String, Object> currentLottery = new HashMap<String, Object>();
-    public void run() {
+    /*public void run() {
         LogUtil.info("===================刷新开奖信息定时任务开始===================");
         try {
             HttpClient client = new DefaultHttpClient();  
@@ -56,16 +62,16 @@ public class RefreshLotteryTask {
                InputStream is = response.getEntity().getContent();  
                JSONObject json = new JSONObject(new JSONTokener(new InputStreamReader(is,HTTP.UTF_8)));
                List<Map<String, Object>> data = JSONHelper.toList((JSONHelper.json2Map(json.toString()).get("data").toString()));
-               String open_phase = data.get(0).get("open_phase").toString();
-               String next_phase = data.get(0).get("next_phase").toString();
-               if (currentLottery.keySet().size()==0||!next_phase.equals((String)currentLottery.get("next_phase"))
-                       ||!open_phase.equals((String)currentLottery.get("open_phase"))) {
+               //String open_phase = data.get(0).get("open_phase").toString();
+               //String next_phase = data.get(0).get("next_phase").toString();
+               //if (currentLottery.keySet().size()==0||!next_phase.equals((String)currentLottery.get("next_phase"))
+                     //  ||!open_phase.equals((String)currentLottery.get("open_phase"))) {
                    for (int i = 0; i < data.get(0).keySet().size(); i++) {
                        String key = (String) data.get(0).keySet().toArray()[i];
                        currentLottery.put(key, data.get(0).get(key));
                    }
-                   currentLottery.put("IS_INSERT", "false");
-               }
+                   //currentLottery.put("IS_INSERT", "false");
+               //}
               
                if("false".equals(currentLottery.get("IS_INSERT").toString())){
                    List<BetPhaseEntity> phases = betPhaseService.findByProperty(BetPhaseEntity.class, "phase", 
@@ -79,8 +85,59 @@ public class RefreshLotteryTask {
                        betPhaseService.save(phase);
                        analysePhase(phase);
                    }
-                   currentLottery.put("IS_INSERT", "true");
+                   //currentLottery.put("IS_INSERT", "true");
                }
+            }  
+        } catch (Exception e) {
+            LogUtil.error(e.getMessage());
+            e.printStackTrace();
+        }
+        LogUtil.info("===================刷新开奖信息定时任务结束===================");
+    }*/
+    
+    
+    public void run() {
+        LogUtil.info("===================刷新开奖信息定时任务开始===================");
+        try {
+            HttpClient client = new DefaultHttpClient();  
+            HttpGet get = new HttpGet(URL_NEWLY) ;
+            HttpResponse response = client.execute(get);
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {  
+               InputStream is = response.getEntity().getContent();  
+               JSONObject json = new JSONObject(new JSONTokener(new InputStreamReader(is,HTTP.UTF_8)));
+               List<Map<String, Object>> data = JSONHelper.toList((JSONHelper.json2Map(json.toString()).get("data").toString()));
+               
+               for (Map<String, Object> map : data) {
+                   List<BetPhaseEntity> phases = betPhaseService.findByProperty(BetPhaseEntity.class, "phase",
+                           Integer.valueOf(map.get("expect").toString()));
+                   BetPhaseEntity phase = null;
+                   boolean isOpen = false;
+                   if (phases.size() == 0) {
+                       phase = new BetPhaseEntity();
+                       phase.setCreatetime(new Date());
+                       phase.setOpentime(map.get("opentime").toString());
+                       phase.setResult(map.get("opencode").toString());
+                       phase.setLoadtime(map.get("opentime").toString());
+                       phase.setPhase(Integer.valueOf(map.get("expect").toString()));
+                       betPhaseService.save(phase);
+                   }else{
+                       phase = phases.get(0);
+                       if(phase.getResult() == null){
+                           phase.setResult(map.get("opencode").toString());
+                           phase.setLoadtime(map.get("opentime").toString());
+                           betPhaseService.saveOrUpdate(phase);
+                       }else{
+                           isOpen = true;
+                       }
+                   }
+                   if(!isOpen){
+                       analysePhase(phase);
+                       betOrderSerivce.betAccount();
+                   }
+               }
+               
+               
+                
             }  
         } catch (Exception e) {
             LogUtil.error(e.getMessage());
