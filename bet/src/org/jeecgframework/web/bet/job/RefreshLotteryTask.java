@@ -135,9 +135,7 @@ public class RefreshLotteryTask {
                        betOrderSerivce.betAccount();
                    }
                }
-               
-               
-                
+
             }  
         } catch (Exception e) {
             LogUtil.error(e.getMessage());
