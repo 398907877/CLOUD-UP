@@ -251,6 +251,7 @@ mui.toast("最大投注额为6000！");<%@ page language="java" contentType="tex
 				success:function(data){
 					if(!data.nextPhase || data.nextPhase == null){
 						window.location.reload(true);
+						return;
 					}
 					mui("#fpTime")[0].value = data.fpTime;
 					mui("#nextPhase")[0].value = data.nextPhase;

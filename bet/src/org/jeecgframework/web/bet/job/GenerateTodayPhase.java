@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +38,9 @@ import org.springframework.stereotype.Service;
  */
 @Service("generateTodayPhase")
 public class GenerateTodayPhase {
+    public static final String START_DATE = "2017-01-01";
+    public static final Integer START_PHASE = 595162;
+    
     public static final String START_TIME = "09:02:30";
 
     public static final String END_TIME = "23:57:30";
@@ -51,16 +55,21 @@ public class GenerateTodayPhase {
         try {
             HttpClient client = new DefaultHttpClient();
             String curDate = DateUtils.formatDate("yyyy-MM-dd ");
-            Date lastDate = org.apache.commons.lang3.time.DateUtils.addDays(new Date(), -1);
-            HttpGet get = new HttpGet(URL+DateUtils.formatDate(lastDate,"yyyy-MM-dd"));
-            HttpResponse response = client.execute(get);
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                InputStream is = response.getEntity().getContent();
-                JSONObject json = new JSONObject(new JSONTokener(new InputStreamReader(is, HTTP.UTF_8)));
-                List<Map<String, Object>> data = JSONHelper.toList((JSONHelper.json2Map(json.toString()).get("data")
-                        .toString()));
-                String last_phase = data.get(0).get("expect").toString();
-                int lastPhase = Integer.valueOf(last_phase);
+            //Date lastDate = org.apache.commons.lang3.time.DateUtils.addDays(new Date(), -1);
+            //HttpGet get = new HttpGet(URL+DateUtils.formatDate(lastDate,"yyyy-MM-dd"));
+            //HttpResponse response = client.execute(get);
+            //if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                //InputStream is = response.getEntity().getContent();
+                //JSONObject json = new JSONObject(new JSONTokener(new InputStreamReader(is, HTTP.UTF_8)));
+                //List<Map<String, Object>> data = JSONHelper.toList((JSONHelper.json2Map(json.toString()).get("data")
+                        //.toString()));
+                //String last_phase = data.get(0).get("expect").toString();
+                GregorianCalendar curC  = new GregorianCalendar();
+                curC.setTime(DateUtils.str2Date(curDate, new SimpleDateFormat("yyyy-MM-dd ")));
+                GregorianCalendar startC  = new GregorianCalendar();
+                startC.setTime(DateUtils.str2Date(START_DATE, new SimpleDateFormat("yyyy-MM-dd")));
+                int diffDay = DateUtils.dateDiff('d', curC, startC);
+                int lastPhase = START_PHASE+diffDay*179-1;
                 Date date = DateUtils.str2Date(curDate+START_TIME, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
                 for (int i = 1; i <= 179; i++) {
                     int curPhase = lastPhase + i;
@@ -76,7 +85,7 @@ public class GenerateTodayPhase {
                     phase.setPhase(curPhase);
                     betPhaseService.save(phase);
                 }
-            }
+            //}
         } catch (Exception e) {
             LogUtil.error(e.getMessage());
             e.printStackTrace();

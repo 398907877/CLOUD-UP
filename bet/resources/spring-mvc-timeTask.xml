@@ -65,7 +65,7 @@
 
 	<bean id="generateTodayPhaseJobCronTrigger" class="org.jeecgframework.core.timer.DataBaseCronTriggerBean">
 		<property name="jobDetail" ref="generateTodayPhaseJob" />
-		<property name="cronExpression" value="0/30 30-40 8 * * ?" />
+		<property name="cronExpression" value="0 59 8 * * ?" />
 	</bean>
 	<bean id="orderAccountTaskJob"
 		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
