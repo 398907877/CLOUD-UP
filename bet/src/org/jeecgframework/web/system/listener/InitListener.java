@@ -2,6 +2,7 @@ package org.jeecgframework.web.system.listener;
 
 import javax.servlet.ServletContextEvent;
 
+import org.jeecgframework.web.bet.job.GenerateTodayPhase;
 import org.jeecgframework.web.system.service.DynamicDataSourceServiceI;
 import org.jeecgframework.web.system.service.MenuInitService;
 import org.jeecgframework.web.system.service.MutiLangServiceI;
@@ -30,6 +31,13 @@ public class InitListener  implements javax.servlet.ServletContextListener {
 		MenuInitService menuInitService = (MenuInitService) webApplicationContext.getBean("menuInitService");
 		MutiLangServiceI mutiLangService = (MutiLangServiceI) webApplicationContext.getBean("mutiLangService");
 		DynamicDataSourceServiceI dynamicDataSourceService = (DynamicDataSourceServiceI) webApplicationContext.getBean("dynamicDataSourceService");
+		
+		/**
+		 * 初始化加载 开奖信息
+		 */
+		GenerateTodayPhase generateTodayPhase = (GenerateTodayPhase)webApplicationContext.getBean("generateTodayPhase");
+		generateTodayPhase.run();
+		
 		
 		/**
 		 * 第一部分：对数据字典进行缓存

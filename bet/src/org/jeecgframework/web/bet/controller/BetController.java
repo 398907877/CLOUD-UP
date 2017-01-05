@@ -143,8 +143,8 @@ public class BetController extends BaseController{
             prizeCount.put(lastPhase, p);
         }
         phaseInfo.put("prizeCount", prizeCount.get(lastPhase));
-        phaseInfo.put("openResult", lastLottery.get("result").toString().split(","));
-        phaseInfo.put("openPhase", lastLottery.get("phase"));
+        phaseInfo.put("openResult", lastLottery==null? new Object[]{"暂无开奖信息"}:lastLottery.get("result").toString().split(","));
+        phaseInfo.put("openPhase", lastPhase);
         phaseInfo.put("kjTime", difTime);//距离开奖时间
         phaseInfo.put("fpTime", difTime - FP_TIME);//封盘时间
         return phaseInfo;

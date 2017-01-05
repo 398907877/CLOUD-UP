@@ -43,7 +43,7 @@ import org.springframework.stereotype.Service;
 public class RefreshLotteryTask {
     public static final String URL = "http://c.apiplus.net/curly.do?token=e9e0077e87038c71&code=bjpk10&format=json";
     
-    public static final String URL_NEWLY = "http://c.apiplus.net/newly.do?token=e9e0077e87038c71&code=bjpk10&format=json";
+    public static final String URL_NEWLY = "http://c.apiplus.net/newly.do?token=e9e0077e87038c71&code=bjpk10&format=json&rows=20";
 
     @Autowired
     private BetPhaseServiceI betPhaseService;
