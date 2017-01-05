@@ -15,7 +15,6 @@ import org.jeecgframework.core.util.ResourceUtil;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
 import org.jeecgframework.web.bet.entity.BetPhaseEntity;
 import org.jeecgframework.web.bet.entity.PointDetailEntity;
-import org.jeecgframework.web.bet.job.RefreshLotteryTask;
 import org.jeecgframework.web.system.pojo.base.TSType;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 
@@ -31,12 +30,12 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
      * @see org.jeecgframework.web.bet.service.BetOrderServiceI#saveBetOrders(java.util.List)
      */
     @Override
-    public int saveBetOrders(List<BetOrderEntity> betOrders) {
+    public int saveBetOrders(List<BetOrderEntity> betOrders,Map<String,Object> lottery) {
         TSUser user = this.get(TSUser.class, ResourceUtil.getSessionUserName().getId());
         BigDecimal totalAmmount = new BigDecimal(0);
         List<PointDetailEntity> pointDetailList = new ArrayList<PointDetailEntity>();
         for (BetOrderEntity betOrderEntity : betOrders) {
-            if(!RefreshLotteryTask.currentLottery.get("next_phase").toString().equals(betOrderEntity.getPhase())){
+            if(!lottery.get("phase").toString().equals(betOrderEntity.getPhase())){
                 return 1;
             }
             String game = betOrderEntity.getGame();

@@ -3,6 +3,8 @@ package org.jeecgframework.web.bet.controller;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,12 +27,12 @@ import org.jeecgframework.core.util.JSONHelper;
 import org.jeecgframework.core.util.ResourceUtil;
 import org.jeecgframework.tag.core.easyui.TagUtil;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
-import org.jeecgframework.web.bet.entity.BetPhaseEntity;
 import org.jeecgframework.web.bet.entity.PointDetailEntity;
 import org.jeecgframework.web.bet.entity.QueryyingleEntity;
 import org.jeecgframework.web.bet.job.GenerateTodayPhase;
-import org.jeecgframework.web.bet.job.RefreshLotteryTask;
 import org.jeecgframework.web.bet.service.BetOrderServiceI;
+import org.jeecgframework.web.system.manager.ClientManager;
+import org.jeecgframework.web.system.pojo.base.Client;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 import org.jeecgframework.web.system.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,12 +70,12 @@ public class BetController extends BaseController{
     
     @RequestMapping(params="raceView")
     public String raceView(HttpServletRequest request){
-        request.setAttribute("phaseInfo", getPhaseInfo());
+      /*  request.setAttribute("phaseInfo", getPhaseInfo());
         long kjTime = DateUtils.str2Date(RefreshLotteryTask.currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
         long curTime = System.currentTimeMillis();
         if((kjTime-curTime)>6*60*1000){
             request.setAttribute("IS_STOP", "true");
-        }
+        }*/
         
         return "website/main/race-view";
     }
@@ -143,7 +145,7 @@ public class BetController extends BaseController{
             prizeCount.put(lastPhase, p);
         }
         phaseInfo.put("prizeCount", prizeCount.get(lastPhase));
-        phaseInfo.put("openResult", lastLottery==null? new Object[]{"暂无开奖信息"}:lastLottery.get("result").toString().split(","));
+        phaseInfo.put("openResult", lastLottery.get("result")==null? new Object[]{}:lastLottery.get("result").toString().split(","));
         phaseInfo.put("openPhase", lastPhase);
         phaseInfo.put("kjTime", difTime);//距离开奖时间
         phaseInfo.put("fpTime", difTime - FP_TIME);//封盘时间
@@ -158,14 +160,26 @@ public class BetController extends BaseController{
     @ResponseBody
     public AjaxJson betConf(HttpServletRequest request){
         AjaxJson result = new AjaxJson();
-        long kjTime = DateUtils.str2Date(RefreshLotteryTask.currentLottery.get("next_time").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
+        List<BetOrderEntity> betOrders = JSONHelper.toList(JSONHelper.toJSONArray(request.getParameter("betList")), BetOrderEntity.class);
+        if(betOrders.size() == 0){
+            result.setMsg("您的投注内容有误，请返回重新投注！");
+            result.setSuccess(false);
+            return result;
+        }
+        Map<String,Object> lottery = betOrderService.findOneForJdbc("select * from t_bet_phase where phase = ?",
+                betOrders.get(0).getPhase());
+        if(lottery == null){
+            result.setMsg("您的投注内容有误，请返回重新投注！");
+            result.setSuccess(false);
+            return result;
+        }
+        long kjTime = DateUtils.str2Date(lottery.get("opentime").toString(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).getTime();
         if((kjTime-BetController.FP_TIME)<System.currentTimeMillis()){
             result.setMsg("该期已封盘！请重新投注");
             result.setSuccess(false);
         }
-        List<BetOrderEntity> betOrders = JSONHelper.toList(JSONHelper.toJSONArray(request.getParameter("betList")), BetOrderEntity.class);
         try {
-            int i = betOrderService.saveBetOrders(betOrders);
+            int i = betOrderService.saveBetOrders(betOrders,lottery);
             if(i == 0){
                 result.setMsg("投注成功!");
                 result.setSuccess(true);
@@ -294,6 +308,25 @@ public class BetController extends BaseController{
     public String betOrders(HttpServletRequest request) {
         return "bet/betOrders";
     }
+    
+    @RequestMapping(params = "onlineUsers")
+    public String onlineUsers(HttpServletRequest request) {
+        return "bet/onlineUsers";
+    }
+    @RequestMapping(params = "onlineUsersData")
+    public void onlineUsersData(HttpServletRequest request,HttpServletResponse response) {
+        Collection<Client> clients = ClientManager.getInstance().getAllClient();
+        List<Map<String,Object>> users = new ArrayList<Map<String,Object>>();
+        for (Client c : clients) {
+            Map<String,Object> user = new HashMap<String,Object>();
+            user.put("username", c.getUser().getUserName());
+            user.put("realname", c.getUser().getRealName());
+            user.put("id", c.getUser().getId());
+            user.put("point", c.getUser().getPoint());
+            users.add(user);
+        }
+        this.setListToJsonString(users.size(),"0","0",users,null, true, response);
+    }
     @RequestMapping(params = "accountMemberDataGrid")
     public void accountMemberDataGrid(BetOrderEntity betOrder,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
         betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
@@ -310,12 +343,7 @@ public class BetController extends BaseController{
                 sql, dataGrid), true);
 
         String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(result),0) as result from t_bet_order t where t.username like '%"+betOrder.getUsername()+"%' "+andStr;
-
-
-
         Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
-
-        
         this.setListToJsonString(pg.getCount(), totalMap.get("amount")==null?"0":totalMap.get("amount").toString(),
                 totalMap.get("result")==null?"0":totalMap.get("result").toString(),pg.getResultList(),null, true, response);
     }
