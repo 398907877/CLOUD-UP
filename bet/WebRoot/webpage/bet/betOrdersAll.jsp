@@ -31,7 +31,7 @@
     	return "第"+value+"名";
     }
 </script>
-<t:datagrid name="pointList" title="上下分明细" actionUrl="betController.do?betOrdersDataGridAll" 
+<t:datagrid name="pointList" title="流水明细" actionUrl="betController.do?betOrdersDataGridAll" 
     fit="true" fitColumns="true" idField="id" queryMode="group" sortName="username" sortOrder="desc">
 	<t:dgCol title="id" field="id" hidden="true"></t:dgCol>
 	<t:dgCol title="common.username" sortable="true" field="username" query="true"></t:dgCol>
