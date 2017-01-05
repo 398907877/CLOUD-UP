@@ -115,10 +115,10 @@ mui.toast("最大投注额为6000！");<%@ page language="java" contentType="tex
 							        						<span class="mui-badge mui-badge-${ri.typecode }">${ri.typecode }</span>
 							        					</div>
 							        					<div class="bet-row-xs-4">
+							        					<input type="hidden" class="type" value="${s.index+1 }" name="type">
 							        						<span class="odds">${ri.typename }</span>
 							        					</div>
 							        					<div>
-							        						<input type="hidden" class="type" value="${s.index+1 }" name="type">
 							        						<input class="bet-amount" onkeyup="isInteger(this)"
 							        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
 							        					</div>
@@ -155,10 +155,10 @@ mui.toast("最大投注额为6000！");<%@ page language="java" contentType="tex
 							        						<span class="mui-badge ">${t.typecode }</span>
 							        					</div>
 							        					<div class="bet-row-xs-4">
+							        					<input type="hidden" value="1" class="type" name="type">
 							        						<span class="odds">${t.typename }</span>
 							        					</div>
 							        					<div>
-							        					<input type="hidden" value="1" class="type" name="type">
 							        						<input class="bet-amount" onkeyup="isInteger(this)"
 							        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
 							        					</div>
@@ -196,10 +196,10 @@ mui.toast("最大投注额为6000！");<%@ page language="java" contentType="tex
 							        						<span class="mui-badge">${t.typecode }</span>
 							        					</div>
 							        					<div class="bet-row-xs-4">
+							        					<input type="hidden" class="type" value="${s.index+1 }" name="type">
 							        						<span class="odds">${t.typename }</span>
 							        					</div>
 							        					<div>
-							        						<input type="hidden" class="type" value="${s.index+1 }" name="type">
 							        						<input class="bet-amount" onkeyup="isInteger(this)"
 							        							 type="number" value="" name="amount" placeholder="" style="text-align:center" />分
 							        					</div>
