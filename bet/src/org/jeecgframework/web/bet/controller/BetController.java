@@ -144,7 +144,7 @@ public class BetController extends BaseController{
             Integer p = rand.nextInt(200)+200;
             prizeCount.put(lastPhase, p);
         }
-        phaseInfo.put("prizeCount", prizeCount.get(lastPhase));
+        phaseInfo.put("prizeCount", lastLottery.get("result")==null?"":prizeCount.get(lastPhase));
         phaseInfo.put("openResult", lastLottery.get("result")==null? new Object[]{}:lastLottery.get("result").toString().split(","));
         phaseInfo.put("openPhase", lastPhase);
         phaseInfo.put("kjTime", difTime);//距离开奖时间
@@ -177,6 +177,12 @@ public class BetController extends BaseController{
         if((kjTime-BetController.FP_TIME)<System.currentTimeMillis()){
             result.setMsg("该期已封盘！请重新投注");
             result.setSuccess(false);
+            return result;
+        }
+        if((kjTime-BetController.JG_TIME)>System.currentTimeMillis()){
+            result.setMsg("该期未开盘！请重新投注");
+            result.setSuccess(false);
+            return result;
         }
         try {
             int i = betOrderService.saveBetOrders(betOrders,lottery);

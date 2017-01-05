@@ -55,7 +55,7 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
             betOrderEntity.setOdds(new BigDecimal(tstypes.get(0).getTypename()));
             Date currDate = new Date();
             BigDecimal amount = betOrderEntity.getAmount();
-            if(amount.compareTo(new BigDecimal(2))==-1){
+            if(amount.compareTo(new BigDecimal(1))==-1){
                 return 4;
             }
             if(amount.compareTo(new BigDecimal(6000))==1){
