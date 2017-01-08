@@ -325,11 +325,13 @@ public class BetController extends BaseController{
         List<Map<String,Object>> users = new ArrayList<Map<String,Object>>();
         for (Client c : clients) {
             Map<String,Object> user = new HashMap<String,Object>();
-            user.put("username", c.getUser().getUserName());
-            user.put("realname", c.getUser().getRealName());
-            user.put("id", c.getUser().getId());
-            user.put("point", c.getUser().getPoint());
-            users.add(user);
+            if(c.getUser() != null){
+                user.put("username", c.getUser().getUserName());
+                user.put("realname", c.getUser().getRealName());
+                user.put("id", c.getUser().getId());
+                user.put("point", c.getUser().getPoint());
+                users.add(user);
+            }
         }
         this.setListToJsonString(users.size(),"0","0",users,null, true, response);
     }
