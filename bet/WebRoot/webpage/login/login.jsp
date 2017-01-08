@@ -50,9 +50,9 @@
           <div class="center">
             <h1 id="id-text2" class="grey">
               <i class="ace-icon fa fa-leaf green"></i>
-              CLOUD  云上
+             江南 娱乐
             </h1>
-            <h4 class="blue" id="id-company-text">www.cloud.org</h4>
+            <h4 class="blue" id="id-company-text">zzzzZZZZZ</h4>
           </div>
           <div class="space-6"></div>
           <div class="position-relative">
@@ -113,7 +113,7 @@
                 </form>
               </div>
             </div>
-            <div class="center"><h4 class="blue" id="id-company-text">&copy; CLOUD 云上版权所有 V1.0</h4></div>
+            <div class="center"><h4 class="blue" id="id-company-text">&copy; 江南娱乐 版权所有 V1.0</h4></div>
             <div class="navbar-fixed-top align-right">
               <br />
               &nbsp;
