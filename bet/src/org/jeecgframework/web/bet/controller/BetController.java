@@ -229,7 +229,11 @@ public class BetController extends BaseController{
         cq.eq("state", "1");
         cq.add();
         betOrderService.getDataGridReturn(cq, true);
-        TagUtil.datagrid(response, dataGrid);
+        String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as result from t_bet_order t where t.state='1' and t.username like '%"+betOrder.getUsername()+"%' ";
+        Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
+        this.setListToJsonString(dataGrid.getTotal(), totalMap.get("amount").toString(),
+                totalMap.get("result").toString(), dataGrid.getResults(), null, true, response);
+        //TagUtil.datagrid(response, dataGrid);
     }
     
     @RequestMapping(params = "betOrdersDataGridAll")

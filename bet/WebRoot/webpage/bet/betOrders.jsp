@@ -25,9 +25,16 @@
     	}
     	return "第"+value+"名";
     }
+    function onLoadSuccess(data){
+    	appendTotalCount(data.totalAmount,data.totalResult)
+    }
+    function appendTotalCount(totalAmount,totalResult){
+    	var totalCount = "<span>总投注："+totalAmount+"</span><span<br /> 输/赢："+totalResult+"</span>";
+    	$(".datagrid-toolbar").eq(1).children(":first").html(totalCount);
+    }
 </script>
 <t:datagrid name="betOrderList" title="未结算注单" actionUrl="betController.do?betOrdersDataGrid" 
-    fit="true" fitColumns="true" idField="id" queryMode="group" sortName="username" sortOrder="desc">
+    fit="true" fitColumns="true" idField="id" queryMode="group" onLoadSuccess="onLoadSuccess" sortName="username" sortOrder="desc">
 	<t:dgCol title="id" field="id" hidden="true"></t:dgCol>
 	<t:dgCol title="common.username" sortable="true" field="username" query="true"></t:dgCol>
 	<t:dgCol title="真实姓名" sortable="false" field="user.realname" query="false"></t:dgCol>
