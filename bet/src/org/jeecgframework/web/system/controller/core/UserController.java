@@ -186,6 +186,9 @@ public class UserController extends BaseController {
         String userId = request.getParameter("id");
         TSUser  user = userService.get(TSUser.class, userId);
         request.setAttribute("user", user);
+        BigDecimal maxPoint = new BigDecimal(systemService.getType("最大值", "100000", 
+                systemService.getTypeGroup("pointLimit", "上下分限制")).getTypename());
+        request.setAttribute("maxPoint", maxPoint.subtract(user.getPoint()));
         return "system/user/changePoint";
     }
 

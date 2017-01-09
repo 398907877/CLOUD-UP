@@ -413,7 +413,21 @@ public class BetController extends BaseController{
         return  remap ;
     }
     
-    
-    
+    /**
+     * 修改密码
+     * 
+     * @return
+     */
+    @RequestMapping(params = "saveOrder")
+    @ResponseBody
+    public AjaxJson savePoint(HttpServletRequest request) {
+        AjaxJson j = new AjaxJson();
+        try {
+            
+        }catch(Exception e){
+            
+        }
+        return j;
+    }
     
 }

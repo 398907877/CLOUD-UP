@@ -17,7 +17,7 @@
 			</tr>
 			<tr>
 				<td align="right"><span class="filedzt">积分:</span></td>
-				<td class="value"><input name="point" type="number" maxlength="9" class="inputxt" datatype="n1" errormsg="请输入整数！"> <span class="Validform_checktip"></span></td>
+				<td class="value"><input name="point" type="number" maxlength="9" class="inputxt" datatype="numrange" max="${ maxPoint}" min="-${user.point }" errormsg="请输入整数！"> <span class="Validform_checktip"></span></td>
 			</tr>
 		</tbody>
 	</table>

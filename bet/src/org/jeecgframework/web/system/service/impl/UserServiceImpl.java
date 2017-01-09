@@ -3,6 +3,7 @@ package org.jeecgframework.web.system.service.impl;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.jeecgframework.web.bet.entity.BetOrderEntity;
 import org.jeecgframework.web.bet.entity.PointDetailEntity;
 import org.jeecgframework.web.system.pojo.base.TSRoleUser;
 import org.jeecgframework.web.system.pojo.base.TSUser;
@@ -59,6 +60,9 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
         pointDetail.setCreateuserid(ResourceUtil.getSessionUserName().getId());
         pointDetail.setUserid(user.getId());
         pointDetail.setType("0");//0 充值 或者提现
+        BetOrderEntity betOrder = new BetOrderEntity();
+        betOrder.setId(0);
+        pointDetail.setBetOrder(betOrder);
         pointDetail.setRealname(user.getRealName());
         pointDetail.setUsername(user.getUserName());
         this.saveOrUpdate(pointDetail);

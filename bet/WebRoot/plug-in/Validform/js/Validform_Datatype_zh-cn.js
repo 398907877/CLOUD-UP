@@ -192,7 +192,7 @@
 					minim=~~obj.attr("min") || 0;
 				
 				gets=gets.replace(/\s*/g,"").replace(/,/g,"");
-				if(!/^\d+\.?\d*$/.test(gets)){
+				if(!/^(-)?[0-9]*.?\d*$/.test(gets)){
 					return "只能输入数字！";
 				}
 				
