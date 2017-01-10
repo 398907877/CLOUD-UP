@@ -16,8 +16,8 @@
 				<td class="value">${user.point }</td>
 			</tr>
 			<tr>
-				<td align="right"><span class="filedzt">积分:</span></td>
-				<td class="value"><input name="point" type="number" maxlength="9" class="inputxt" datatype="numrange" max="${ maxPoint}" min="-${user.point }" errormsg="请输入整数！"> <span class="Validform_checktip"></span></td>
+				<td align="right"><span class="filedzt">上/下积分:</span></td>
+				<td class="value"><input name="point" type="number" maxlength="9" class="inputxt" datatype="numrange" maxmsg="上分额度剩余:${ maxPoint},当前上分已超出。" max="${ maxPoint}" min="-${user.point }" errormsg="请输入整数！"> <span class="Validform_checktip"></span></td>
 			</tr>
 		</tbody>
 	</table>

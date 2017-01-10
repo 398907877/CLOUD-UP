@@ -186,9 +186,9 @@ public class UserController extends BaseController {
         String userId = request.getParameter("id");
         TSUser  user = userService.get(TSUser.class, userId);
         request.setAttribute("user", user);
-        BigDecimal maxPoint = new BigDecimal(systemService.getType("最大值", "100000", 
+        BigDecimal maxPoint = new BigDecimal(systemService.getType("剩余额度", "100000", 
                 systemService.getTypeGroup("pointLimit", "上下分限制")).getTypename());
-        request.setAttribute("maxPoint", maxPoint.subtract(user.getPoint()));
+        request.setAttribute("maxPoint", maxPoint);
         return "system/user/changePoint";
     }
 
@@ -215,8 +215,13 @@ public class UserController extends BaseController {
             }
             BigDecimal point = new BigDecimal(request.getParameter("point"));
             
-            
-
+            BigDecimal maxPoint = new BigDecimal(systemService.getType("剩余额度", "100000", 
+                    systemService.getTypeGroup("pointLimit", "上下分限制")).getTypename());
+            if(point.compareTo(maxPoint) == 1){
+                j.setMsg("已达上分额度上限，不能继续上分！");
+                j.setSuccess(false);
+                return j;
+            }
             BigDecimal  pointzz=user.getPoint()==null?new BigDecimal(0):user.getPoint();
             
             BigDecimal result =pointzz.add(point);

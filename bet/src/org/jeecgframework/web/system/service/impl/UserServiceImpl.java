@@ -6,13 +6,16 @@ import java.util.Date;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
 import org.jeecgframework.web.bet.entity.PointDetailEntity;
 import org.jeecgframework.web.system.pojo.base.TSRoleUser;
+import org.jeecgframework.web.system.pojo.base.TSType;
 import org.jeecgframework.web.system.pojo.base.TSUser;
+import org.jeecgframework.web.system.service.SystemService;
 import org.jeecgframework.web.system.service.UserService;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.jeecgframework.core.common.service.impl.CommonServiceImpl;
 import org.jeecgframework.core.util.ResourceUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,6 +28,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class UserServiceImpl extends CommonServiceImpl implements UserService {
 
+    @Autowired
+    private SystemService systemService;
+    
 	public TSUser checkUserExits(TSUser user){
 		return this.commonDao.getUserByUserIdAndUserNameExits(user);
 	}
@@ -66,6 +72,16 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
         pointDetail.setRealname(user.getRealName());
         pointDetail.setUsername(user.getUserName());
         this.saveOrUpdate(pointDetail);
+        TSType type= systemService.getType("剩余额度", "100000", 
+                systemService.getTypeGroup("pointLimit", "上下分限制"));
+        BigDecimal limit = new BigDecimal(type.getTypename()).subtract(amount);
+        BigDecimal maxPoint = new BigDecimal(systemService.getType("最大值", "100000", 
+                systemService.getTypeGroup("pointLimit", "上下分限制")).getTypename());
+        if(limit.compareTo(maxPoint) == 1){
+            limit = maxPoint;
+        }
+        type.setTypename(limit.toString());
+        this.saveOrUpdate(type);
         user.setPoint(point);
         this.saveOrUpdate(user);
     }

@@ -190,6 +190,8 @@
 				
 				var maxim=~~obj.attr("max") || 100000000,
 					minim=~~obj.attr("min") || 0;
+				var minmsg = obj.attr("minmsg") || "值不能小于"+minim;
+				var maxmsg = obj.attr("maxmsg") || "值不能大于"+maxim;
 				
 				gets=gets.replace(/\s*/g,"").replace(/,/g,"");
 				if(!/^(-)?[0-9]*.?\d*$/.test(gets)){
@@ -197,9 +199,9 @@
 				}
 				
 				if(gets<minim){
-					return "值不能小于"+minim+"！";
+					return minmsg;
 				}else if(gets>maxim){
-					return "值不能大于"+maxim+"！";
+					return maxmsg;
 				}
 				return  true;
 			},
