@@ -29,7 +29,7 @@
     	appendTotalCount(data.totalAmount,data.totalResult)
     }
     function appendTotalCount(totalAmount,totalResult){
-    	var totalCount = "<span>总投注："+totalAmount+"</span><span<br /> 输/赢："+totalResult+"</span>";
+    	var totalCount = "<span>总投注："+totalAmount+"</span><span><br /> 输/赢："+totalResult+"</span>";
     	$(".datagrid-toolbar").eq(1).children(":first").html(totalCount);
     }
 </script>

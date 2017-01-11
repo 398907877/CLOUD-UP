@@ -9,13 +9,20 @@ Date.prototype.format = function (format,value) {
 	if(value==''||value==null){
 		return '';
 	}
-	var strdata=value.replace(/-/g,"/");
-	var index=strdata.indexOf(".");
-	if(index>0)
-	{
-		strdata=strdata.substr(0,index);
+	var date= new Date();
+	var strdata = "";
+	if(typeof value != "string"){
+		date = new Date(value);
+		strdata = date.getFullYear()+" ";
+	}else{
+		strdata=value.replace(/-/g,"/");
+		var index=strdata.indexOf(".");
+		if(index>0)
+		{
+			strdata=strdata.substr(0,index);
+		}
+		date= new Date(Date.parse(strdata));
 	}
-	var date= new Date(Date.parse(strdata));
 	var o = {
 		"M+" : date.getMonth() + 1, // month
 		"d+" : date.getDate(), // day
@@ -26,7 +33,6 @@ Date.prototype.format = function (format,value) {
 		"S" : date.getMilliseconds()
 		// millisecond
 	};
-	
 	if (/(y+)/.test(format)) {
 		format = format.replace(RegExp.$1, strdata.substr(4-RegExp.$1.length,RegExp.$1.length));
 	}
