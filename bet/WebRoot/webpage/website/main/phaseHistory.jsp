@@ -46,8 +46,10 @@
 					<span class="mui-badge-his mui-badge-${p.ranking8 }">${p.ranking8 }</span>
 					<span class="mui-badge-his mui-badge-${p.ranking9 }">${p.ranking9 }</span>
 					<span class="mui-badge-his mui-badge-${p.ranking10 }">${p.ranking10 }</span>
+					<!--  
 					<br />冠亚和：${p.top2 } -- ${p.top2b } -- ${p.top2d }
 					<br />1~5龙虎：${p.ranking1lh } -- ${p.ranking2lh } -- ${p.ranking3lh } -- ${p.ranking4lh } -- ${p.ranking5lh }
+					-->
 					</li>
 				</c:forEach>
 			</ul>
