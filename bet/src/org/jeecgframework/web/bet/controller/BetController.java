@@ -41,6 +41,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.druid.util.StringUtils;
+
 /**
  * 描述
  * @author John Zhang
@@ -251,7 +253,7 @@ public class BetController extends BaseController{
         cq.add();
         HqlGenerateUtil.installHql(cq, betOrder);
         String operatetime_begin = request.getParameter("createtime_begin");
-        if(operatetime_begin != null) {
+        if(!StringUtils.isEmpty(operatetime_begin)) {
             Timestamp beginValue = null;
             try {
                 beginValue = DateUtils.parseTimestamp(operatetime_begin, "yyyy-MM-dd");
@@ -261,7 +263,7 @@ public class BetController extends BaseController{
             cq.ge("createtime", beginValue);
         }
         String operatetime_end = request.getParameter("createtime_end");
-        if(operatetime_end != null) {
+        if(!StringUtils.isEmpty(operatetime_end)) {
             if (operatetime_end.length() == 10) {
                 operatetime_end =operatetime_end + " 23:59:59";
             }
@@ -286,17 +288,19 @@ public class BetController extends BaseController{
         cq.eq("type", "0");
         cq.add();
         String operatetime_begin = request.getParameter("createtime_begin");
-        if(operatetime_begin != null) {
+        String whereStr = "where type='0' and username like '%"+pointDetail.getUsername()+"%'";
+        if(!StringUtils.isEmpty(operatetime_begin)) {
             Timestamp beginValue = null;
             try {
                 beginValue = DateUtils.parseTimestamp(operatetime_begin, "yyyy-MM-dd");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            whereStr += " and createtime >= '"+operatetime_begin+"' ";
             cq.ge("createtime", beginValue);
         }
         String operatetime_end = request.getParameter("createtime_end");
-        if(operatetime_end != null) {
+        if(!StringUtils.isEmpty(operatetime_end)) {
             if (operatetime_end.length() == 10) {
                 operatetime_end =operatetime_end + " 23:59:59";
             }
@@ -306,10 +310,15 @@ public class BetController extends BaseController{
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            whereStr += " and createtime <= '"+operatetime_end+"' ";
             cq.le("createtime", endValue);
         }
         cq.add();
+        String sql = "select ifnull(sum(amount),0) as amount from t_point_detail "+whereStr;
+        Map<String, Object> totalResult = betOrderService.findOneForJdbc(sql);
         betOrderService.getDataGridReturn(cq, true);
+        this.setListToJsonString(dataGrid.getTotal(), totalResult.get("amount").toString(),
+                "0", dataGrid.getResults(), null, true, response);
         TagUtil.datagrid(response, dataGrid);
     }
     
@@ -353,7 +362,7 @@ public class BetController extends BaseController{
         betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
         String date = request.getParameter("operatetime_begin");
         String andStr = "";
-        if((date!=null)&&(date!="")){
+        if((date!=null)&&(!"".equals(date))){
             andStr = "and createtime between '"+date+" 00:00:00' and '"+date+" 23:59:59'";
         }
         String sql ="select  u1.*,u2.realname from (select t.userid,t.username,SUM(amount) as amount,SUM(result) as result from t_bet_order t "
