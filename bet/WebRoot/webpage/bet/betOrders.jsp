@@ -35,9 +35,9 @@
 </script>
 <t:datagrid name="betOrderList" title="未结算注单" actionUrl="betController.do?betOrdersDataGrid" 
     fit="true" fitColumns="true" idField="phase" queryMode="group" onLoadSuccess="onLoadSuccess" sortName="username" sortOrder="desc">
-	<%-- <t:dgCol title="common.username" sortable="true" field="username" query="true"></t:dgCol>
+	<%-- <t:dgCol title="期" sortable="true" field="phase" query="true"></t:dgCol>
 	<t:dgCol title="真实姓名" sortable="false" field="user.realname" query="false"></t:dgCol> --%>
-	<t:dgCol title="期" field="phase"></t:dgCol>
+	<t:dgCol title="期" field="phase"  query="true"    ></t:dgCol>
 	<t:dgCol title="玩法" field="game" formatterjs="formattGame"></t:dgCol>
 	<t:dgCol title="类型" field="type" formatterjs="formattType"></t:dgCol>
 	<t:dgCol title="赔率" field="odds" query="false"></t:dgCol>
