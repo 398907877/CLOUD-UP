@@ -223,19 +223,32 @@ public class BetController extends BaseController{
     
     @RequestMapping(params = "betOrdersDataGrid")
     public void betOrdersDataGrid(BetOrderEntity betOrder,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
-        betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
+        /*betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
         CriteriaQuery cq = new CriteriaQuery(BetOrderEntity.class, dataGrid);
         HqlGenerateUtil.installHql(cq, betOrder);
         cq.eq("state", "1");
         cq.add();
         betOrderService.getDataGridReturn(cq, true);
-        TagUtil.datagrid(response, dataGrid);
+        String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as result from t_bet_order t where t.state='1' and t.username like '%"+betOrder.getUsername()+"%' ";
+        Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
+        this.setListToJsonString(dataGrid.getTotal(), totalMap.get("amount").toString(),
+                totalMap.get("result").toString(), dataGrid.getResults(), null, true, response);*/
+        String sql = "select t.phase,t.game,t.type,t.odds,t.target,IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as winamount"
+                + " from t_bet_order t where t.state='1' group by t.phase,t.game,t.type,t.target,t.odds order by winamount desc";
+        PageList pg = betOrderService.getPageListBySql(new HqlQuery(BetOrderEntity.class,sql,dataGrid), true);
+        String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as result from t_bet_order t where t.state='1' ";
+        Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
+        this.setListToJsonString(pg.getCount(), totalMap.get("amount").toString(),
+                totalMap.get("result").toString(), pg.getResultList(), null, true, response);
+        //TagUtil.datagrid(response, dataGrid);
     }
     
     @RequestMapping(params = "betOrdersDataGridAll")
     public void betOrdersDataGridAll(BetOrderEntity betOrder,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
         betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
         CriteriaQuery cq = new CriteriaQuery(BetOrderEntity.class, dataGrid);
+        cq.eq("state", "2");
+        cq.add();
         HqlGenerateUtil.installHql(cq, betOrder);
         String operatetime_begin = request.getParameter("createtime_begin");
         if(operatetime_begin != null) {
@@ -325,11 +338,13 @@ public class BetController extends BaseController{
         List<Map<String,Object>> users = new ArrayList<Map<String,Object>>();
         for (Client c : clients) {
             Map<String,Object> user = new HashMap<String,Object>();
-            user.put("username", c.getUser().getUserName());
-            user.put("realname", c.getUser().getRealName());
-            user.put("id", c.getUser().getId());
-            user.put("point", c.getUser().getPoint());
-            users.add(user);
+            if(c.getUser() != null){
+                user.put("username", c.getUser().getUserName());
+                user.put("realname", c.getUser().getRealName());
+                user.put("id", c.getUser().getId());
+                user.put("point", c.getUser().getPoint());
+                users.add(user);
+            }
         }
         this.setListToJsonString(users.size(),"0","0",users,null, true, response);
     }
@@ -407,7 +422,21 @@ public class BetController extends BaseController{
         return  remap ;
     }
     
-    
-    
+    /**
+     * 修改密码
+     * 
+     * @return
+     */
+    @RequestMapping(params = "saveOrder")
+    @ResponseBody
+    public AjaxJson savePoint(HttpServletRequest request) {
+        AjaxJson j = new AjaxJson();
+        try {
+            
+        }catch(Exception e){
+            
+        }
+        return j;
+    }
     
 }
