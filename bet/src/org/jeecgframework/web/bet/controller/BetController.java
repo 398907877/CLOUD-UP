@@ -41,6 +41,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.druid.util.StringUtils;
+
 /**
  * 描述
  * @author John Zhang
@@ -223,22 +225,35 @@ public class BetController extends BaseController{
     
     @RequestMapping(params = "betOrdersDataGrid")
     public void betOrdersDataGrid(BetOrderEntity betOrder,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
-        betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
+        /*betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
         CriteriaQuery cq = new CriteriaQuery(BetOrderEntity.class, dataGrid);
         HqlGenerateUtil.installHql(cq, betOrder);
         cq.eq("state", "1");
         cq.add();
         betOrderService.getDataGridReturn(cq, true);
-        TagUtil.datagrid(response, dataGrid);
+        String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as result from t_bet_order t where t.state='1' and t.username like '%"+betOrder.getUsername()+"%' ";
+        Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
+        this.setListToJsonString(dataGrid.getTotal(), totalMap.get("amount").toString(),
+                totalMap.get("result").toString(), dataGrid.getResults(), null, true, response);*/
+        String sql = "select t.phase,t.game,t.type,t.odds,t.target,IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as winamount"
+                + " from t_bet_order t where t.state='1' group by t.phase,t.game,t.type,t.target,t.odds order by winamount desc";
+        PageList pg = betOrderService.getPageListBySql(new HqlQuery(BetOrderEntity.class,sql,dataGrid), true);
+        String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as result from t_bet_order t where t.state='1' ";
+        Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
+        this.setListToJsonString(pg.getCount(), totalMap.get("amount").toString(),
+                totalMap.get("result").toString(), pg.getResultList(), null, true, response);
+        //TagUtil.datagrid(response, dataGrid);
     }
     
     @RequestMapping(params = "betOrdersDataGridAll")
     public void betOrdersDataGridAll(BetOrderEntity betOrder,HttpServletRequest request,HttpServletResponse response,DataGrid dataGrid){
         betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
         CriteriaQuery cq = new CriteriaQuery(BetOrderEntity.class, dataGrid);
+        cq.eq("state", "2");
+        cq.add();
         HqlGenerateUtil.installHql(cq, betOrder);
         String operatetime_begin = request.getParameter("createtime_begin");
-        if(operatetime_begin != null) {
+        if(!StringUtils.isEmpty(operatetime_begin)) {
             Timestamp beginValue = null;
             try {
                 beginValue = DateUtils.parseTimestamp(operatetime_begin, "yyyy-MM-dd");
@@ -248,7 +263,7 @@ public class BetController extends BaseController{
             cq.ge("createtime", beginValue);
         }
         String operatetime_end = request.getParameter("createtime_end");
-        if(operatetime_end != null) {
+        if(!StringUtils.isEmpty(operatetime_end)) {
             if (operatetime_end.length() == 10) {
                 operatetime_end =operatetime_end + " 23:59:59";
             }
@@ -273,17 +288,19 @@ public class BetController extends BaseController{
         cq.eq("type", "0");
         cq.add();
         String operatetime_begin = request.getParameter("createtime_begin");
-        if(operatetime_begin != null) {
+        String whereStr = "where type='0' and username like '%"+pointDetail.getUsername()+"%'";
+        if(!StringUtils.isEmpty(operatetime_begin)) {
             Timestamp beginValue = null;
             try {
                 beginValue = DateUtils.parseTimestamp(operatetime_begin, "yyyy-MM-dd");
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            whereStr += " and createtime >= '"+operatetime_begin+"' ";
             cq.ge("createtime", beginValue);
         }
         String operatetime_end = request.getParameter("createtime_end");
-        if(operatetime_end != null) {
+        if(!StringUtils.isEmpty(operatetime_end)) {
             if (operatetime_end.length() == 10) {
                 operatetime_end =operatetime_end + " 23:59:59";
             }
@@ -293,10 +310,15 @@ public class BetController extends BaseController{
             } catch (ParseException e) {
                 e.printStackTrace();
             }
+            whereStr += " and createtime <= '"+operatetime_end+"' ";
             cq.le("createtime", endValue);
         }
         cq.add();
+        String sql = "select ifnull(sum(amount),0) as amount from t_point_detail "+whereStr;
+        Map<String, Object> totalResult = betOrderService.findOneForJdbc(sql);
         betOrderService.getDataGridReturn(cq, true);
+        this.setListToJsonString(dataGrid.getTotal(), totalResult.get("amount").toString(),
+                "0", dataGrid.getResults(), null, true, response);
         TagUtil.datagrid(response, dataGrid);
     }
     
@@ -340,7 +362,7 @@ public class BetController extends BaseController{
         betOrder.setUsername(betOrder.getUsername()==null?"":betOrder.getUsername());
         String date = request.getParameter("operatetime_begin");
         String andStr = "";
-        if((date!=null)&&(date!="")){
+        if((date!=null)&&(!"".equals(date))){
             andStr = "and createtime between '"+date+" 00:00:00' and '"+date+" 23:59:59'";
         }
         String sql ="select  u1.*,u2.realname from (select t.userid,t.username,SUM(amount) as amount,SUM(result) as result from t_bet_order t "
@@ -409,7 +431,21 @@ public class BetController extends BaseController{
         return  remap ;
     }
     
-    
-    
+    /**
+     * 修改密码
+     * 
+     * @return
+     */
+    @RequestMapping(params = "saveOrder")
+    @ResponseBody
+    public AjaxJson savePoint(HttpServletRequest request) {
+        AjaxJson j = new AjaxJson();
+        try {
+            
+        }catch(Exception e){
+            
+        }
+        return j;
+    }
     
 }
