@@ -72,10 +72,10 @@ public class UserServiceImpl extends CommonServiceImpl implements UserService {
         pointDetail.setRealname(user.getRealName());
         pointDetail.setUsername(user.getUserName());
         this.saveOrUpdate(pointDetail);
-        TSType type= systemService.getType("剩余额度", "100000", 
+        TSType type= systemService.getType("剩余额度", "10000", 
                 systemService.getTypeGroup("pointLimit", "上下分限制"));
         BigDecimal limit = new BigDecimal(type.getTypename()).subtract(amount);
-        BigDecimal maxPoint = new BigDecimal(systemService.getType("最大值", "100000", 
+        BigDecimal maxPoint = new BigDecimal(systemService.getType("最大值", "10000", 
                 systemService.getTypeGroup("pointLimit", "上下分限制")).getTypename());
         if(limit.compareTo(maxPoint) == 1){
             limit = maxPoint;

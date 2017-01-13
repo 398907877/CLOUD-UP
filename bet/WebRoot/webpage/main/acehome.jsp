@@ -26,7 +26,7 @@
         <div class="col-sm-12">
             <blockquote class="text-warning" style="font-size:14px">添加用户 上下积分 ！ 游戏规则！ 报表查看
            
-                <h2 class="text-danger">那么，后台管理系统来拉~~~</h2>
+                <h2 class="text-danger">用于管理用户以及查看数据~~</h2>
             </blockquote>
             <hr>
         </div>

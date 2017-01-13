@@ -50,9 +50,9 @@
           <div class="center">
             <h1 id="id-text2" class="grey">
               <i class="ace-icon fa fa-leaf green"></i>
-             江南 娱乐
+              江 南 娱 乐
             </h1>
-            <h4 class="blue" id="id-company-text">zzzzZZZZZ</h4>
+            <h4 class="blue" id="id-company-text">have fun</h4>
           </div>
           <div class="space-6"></div>
           <div class="position-relative">
@@ -168,7 +168,15 @@
 <t:base type="tools" ></t:base>
 <script type="text/javascript">
 //update---start---author:jg_renjie at 20160410 for:#1038 【bug】新登录页面修改
+
+window.onload=function(){
+	
+
+	blurStyle();
+      //do something
+};
 	$(function(){
+
 		optErrMsg();
 	});
 	$("#errMsgContiner").hide();
