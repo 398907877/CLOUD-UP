@@ -1,20 +1,25 @@
 package org.jeecgframework.web.bet.service.impl;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.jeecgframework.core.common.service.impl.CommonServiceImpl;
+import org.jeecgframework.core.util.DateUtils;
 import org.jeecgframework.core.util.LogUtil;
 import org.jeecgframework.core.util.ResourceUtil;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
 import org.jeecgframework.web.bet.entity.BetPhaseEntity;
 import org.jeecgframework.web.bet.entity.PointDetailEntity;
+import org.jeecgframework.web.bet.job.RefreshLotteryTask;
 import org.jeecgframework.web.system.pojo.base.TSType;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 
@@ -22,6 +27,8 @@ import org.jeecgframework.web.system.pojo.base.TSUser;
 @Transactional
 public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgframework.web.bet.service.BetOrderServiceI {
 
+    @Autowired
+    private RefreshLotteryTask refreshLotteryTask;
     /**
      * 描述
      * @author John Zhang
@@ -111,7 +118,7 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
                         Map<String, Object> pa = this.findOneForJdbc("select * from t_phase_analyse where phase=?",
                                 p.getPhase());
                         if(p.getResult() == null || pa == null){
-                            return;
+                            continue;
                         }
                         String column = "";
                         boolean isWin = false;
@@ -238,5 +245,75 @@ public class BetOrderServiceImpl extends CommonServiceImpl implements org.jeecgf
             result.put("TOP2", this.findHql("select t from TSType t where t.TSTypegroup.typegroupcode =?", "TOP2"));
         }
         return result;
+    }
+
+    /**
+     * 描述 手动保存注单
+     * @author John Zhang
+     * @created 2017年1月12日 下午11:31:16
+     * @param berOrder
+     * @see org.jeecgframework.web.bet.service.BetOrderServiceI#saveOrder(org.jeecgframework.web.bet.entity.BetOrderEntity)
+     */
+    @Override
+    public int saveOrder(BetOrderEntity berOrder) {
+        TSUser user = this.get(TSUser.class,  berOrder.getUser().getId());
+        if(user != null){
+            if(user.getPoint().compareTo(berOrder.getAmount()) == -1){
+                return 2;
+            }
+            berOrder.setCreatetime(new Date());
+            berOrder.setWinamount(berOrder.getAmount().multiply(berOrder.getOdds()).subtract(berOrder.getAmount()));
+            berOrder.setState("1");
+            berOrder.setResulttype("");
+            berOrder.setUser(user);
+            berOrder.setUsername(user.getUserName());
+            PointDetailEntity pointDetail = new PointDetailEntity();
+            pointDetail.setAmount(berOrder.getAmount().multiply(new BigDecimal(-1)));
+            pointDetail.setCreatetime(new Date());
+            pointDetail.setCreateuser(user.getUserName());
+            pointDetail.setCreateuserid(user.getId());
+            pointDetail.setUserid(user.getId());
+            pointDetail.setType("1");//投注
+            pointDetail.setBetOrder(berOrder);
+            pointDetail.setRealname(user.getRealName());
+            pointDetail.setUsername(user.getUserName());
+            this.saveOrUpdate(berOrder);
+            this.saveOrUpdate(pointDetail);
+            user.setPoint(user.getPoint().subtract(berOrder.getAmount()));
+            ResourceUtil.getSessionUserName().setPoint(user.getPoint());
+            this.saveOrUpdate(user);
+        }else{
+            return 1;
+        }
+        return 0;
+    }
+    public static final String[] RESULT = new String[]{"1","2","3","4","5","6","7","8","9","10"};
+    public int saveResult(BetPhaseEntity phase){
+        if(phase.getPhase() == null || phase.getResult() == null){
+            return 1;
+        }
+        String[] result = phase.getResult().split(",");
+        if(result.length != 10){
+            return 2;
+        }
+        List<String> resultList = Arrays.asList(result);
+        for(int i=0;i<10;i++){
+            int count = 0;
+            for (String r : resultList) {
+                if(RESULT[i].equals(r)){
+                    count ++;
+                }
+            }
+            if(count != 1){
+                return 2;
+            }
+        }
+        BetPhaseEntity oldPhase = this.findByProperty(BetPhaseEntity.class, "phase", phase.getPhase()).get(0);
+        oldPhase.setResult(phase.getResult());
+        oldPhase.setLoadtime(DateUtils.date2Str(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")));
+        this.saveOrUpdate(oldPhase);
+        refreshLotteryTask.analysePhase(oldPhase);
+        this.betAccount();
+        return 0;
     }
 }

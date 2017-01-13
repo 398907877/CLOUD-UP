@@ -29,12 +29,13 @@
     	appendTotalCount(data.totalAmount,data.totalResult)
     }
     function appendTotalCount(totalAmount,totalResult){
-    	var totalCount = "<span>总投注："+totalAmount+"</span><span><br /> 输/赢："+totalResult+"</span>";
-    	$(".datagrid-toolbar").eq(1).children(":first").html(totalCount);
+    	var totalCount = "<span id='info'>总投注："+totalAmount+"&nbsp&nbsp输/赢："+totalResult+"</span>";
+    	$(".datagrid-toolbar").eq(1).children(":first").find("#info").remove();
+    	$(".datagrid-toolbar").eq(1).children(":first").append(totalCount);
     }
 </script>
 <t:datagrid name="betOrderList" title="未结算注单" actionUrl="betController.do?betOrdersDataGrid" 
-    fit="true" fitColumns="true" idField="phase" queryMode="group" onLoadSuccess="onLoadSuccess" sortName="username" sortOrder="desc">
+    fit="true" fitColumns="true" idField="phase" queryMode="group" pagination="true" onLoadSuccess="onLoadSuccess" sortName="username" sortOrder="desc">
 	<%-- <t:dgCol title="期" sortable="true" field="phase" query="true"></t:dgCol>
 	<t:dgCol title="真实姓名" sortable="false" field="user.realname" query="false"></t:dgCol> --%>
 	<t:dgCol title="期" field="phase"  query="true"    ></t:dgCol>
@@ -44,4 +45,6 @@
 	<t:dgCol title="投注目标" field="target" query="false"></t:dgCol>
 	<t:dgCol title="投注额" field="amount" query="false"></t:dgCol>
 	<t:dgCol title="可赢额" field="winamount" query="false" ></t:dgCol>
+	<t:dgToolBar title="添加注单" operationCode="addOrder" icon="icon-add" url="betController.do?toAddOrder" funname="add"></t:dgToolBar>
+	<t:dgToolBar title="开奖结果录入" operationCode="addResult" icon="icon-add" url="betController.do?toAddResult" funname="add"></t:dgToolBar>
 </t:datagrid>

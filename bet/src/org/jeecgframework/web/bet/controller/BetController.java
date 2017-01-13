@@ -20,19 +20,24 @@ import org.jeecgframework.core.common.hibernate.qbc.CriteriaQuery;
 import org.jeecgframework.core.common.hibernate.qbc.HqlQuery;
 import org.jeecgframework.core.common.hibernate.qbc.PageList;
 import org.jeecgframework.core.common.model.json.AjaxJson;
+import org.jeecgframework.core.common.model.json.ComboBox;
 import org.jeecgframework.core.common.model.json.DataGrid;
 import org.jeecgframework.core.extend.hqlsearch.HqlGenerateUtil;
 import org.jeecgframework.core.util.DateUtils;
 import org.jeecgframework.core.util.JSONHelper;
 import org.jeecgframework.core.util.ResourceUtil;
 import org.jeecgframework.tag.core.easyui.TagUtil;
+import org.jeecgframework.tag.vo.datatable.SortDirection;
 import org.jeecgframework.web.bet.entity.BetOrderEntity;
+import org.jeecgframework.web.bet.entity.BetPhaseEntity;
 import org.jeecgframework.web.bet.entity.PointDetailEntity;
 import org.jeecgframework.web.bet.entity.QueryyingleEntity;
 import org.jeecgframework.web.bet.job.GenerateTodayPhase;
 import org.jeecgframework.web.bet.service.BetOrderServiceI;
 import org.jeecgframework.web.system.manager.ClientManager;
 import org.jeecgframework.web.system.pojo.base.Client;
+import org.jeecgframework.web.system.pojo.base.TSType;
+import org.jeecgframework.web.system.pojo.base.TSTypegroup;
 import org.jeecgframework.web.system.pojo.base.TSUser;
 import org.jeecgframework.web.system.service.SystemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -235,10 +240,11 @@ public class BetController extends BaseController{
         Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
         this.setListToJsonString(dataGrid.getTotal(), totalMap.get("amount").toString(),
                 totalMap.get("result").toString(), dataGrid.getResults(), null, true, response);*/
+        betOrder.setPhase(betOrder.getPhase()==null?"":betOrder.getPhase());
         String sql = "select t.phase,t.game,t.type,t.odds,t.target,IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as winamount"
-                + " from t_bet_order t where t.state='1' group by t.phase,t.game,t.type,t.target,t.odds order by winamount desc";
+                + " from t_bet_order t where t.state='1' and t.phase like '%"+betOrder.getPhase()+"%' group by t.phase,t.game,t.type,t.target,t.odds order by winamount desc";
         PageList pg = betOrderService.getPageListBySql(new HqlQuery(BetOrderEntity.class,sql,dataGrid), true);
-        String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as result from t_bet_order t where t.state='1' ";
+        String totalSql = "select  IFNULL(SUM(amount),0) as amount,IFNULL(SUM(winamount),0) as result from t_bet_order t where t.state='1' and t.phase like '%"+betOrder.getPhase()+"%'";
         Map<String,Object> totalMap = betOrderService.findOneForJdbc(totalSql);
         this.setListToJsonString(pg.getCount(), totalMap.get("amount").toString(),
                 totalMap.get("result").toString(), pg.getResultList(), null, true, response);
@@ -432,20 +438,98 @@ public class BetController extends BaseController{
     }
     
     /**
-     * 修改密码
      * 
      * @return
      */
     @RequestMapping(params = "saveOrder")
     @ResponseBody
-    public AjaxJson savePoint(HttpServletRequest request) {
+    public AjaxJson saveOrder(BetOrderEntity betOrder,HttpServletRequest request) {
         AjaxJson j = new AjaxJson();
         try {
-            
+            int result = this.betOrderService.saveOrder(betOrder);
+            if(result == 1){
+                j.setSuccess(false);
+                j.setMsg("该用户不存在");
+            }else if(result == 2){
+                j.setMsg("该用户积分不足！");
+                j.setSuccess(false);
+            }else{
+                j.setSuccess(true);
+                j.setMsg("添加成功");
+            }
         }catch(Exception e){
             
         }
         return j;
     }
+    @RequestMapping(params ="toAddOrder")
+    public String toAddOrder(BetOrderEntity entity,HttpServletRequest request){
+        
+        return "bet/addOrder";
+    }
+    @RequestMapping(params ="toAddResult")
+    public String toAddResult(BetOrderEntity entity,HttpServletRequest request){
+        
+        return "bet/addResult";
+    }
+    @RequestMapping(params = "saveResult")
+    @ResponseBody
+    public AjaxJson saveResult(BetPhaseEntity phase ,HttpServletRequest request) {
+        AjaxJson j = new AjaxJson();
+        try {
+           if(betOrderService.saveResult(phase) != 0){
+               j.setSuccess(false);
+               j.setMsg("开奖结果内容有误");
+           }else{
+               j.setMsg("保存成功");
+           }
+        }catch(Exception e){
+        }
+        return j;
+    }
     
+    @RequestMapping(params = "phaseCombo")
+    @ResponseBody
+    public List<ComboBox> phaseCombo(HttpServletResponse response, HttpServletRequest request, ComboBox comboBox) {
+        List<ComboBox> comboBoxs = new ArrayList<ComboBox>();
+        List<BetPhaseEntity> phases = new ArrayList();
+        CriteriaQuery cq = new CriteriaQuery(BetPhaseEntity.class);
+        if(request.getParameter("state")!= null){
+            cq.eq("result", null);
+            cq.add();
+        }
+        cq.addOrder("phase", SortDirection.desc);
+        List<BetPhaseEntity> phaseList = systemService.getListByCriteriaQuery(cq, false);
+        comboBoxs = TagUtil.getComboBox(phaseList, phases, comboBox);
+        return comboBoxs;
+    }
+    
+    @RequestMapping(params = "typeCombo")
+    @ResponseBody
+    public List<ComboBox> typeCombo(HttpServletResponse response, HttpServletRequest request, ComboBox comboBox) {
+        String game = request.getParameter("game");
+        List<ComboBox> comboBoxs = new ArrayList<ComboBox>();
+        List<TSTypegroup> typegroups = new ArrayList();
+        CriteriaQuery cq = new CriteriaQuery(TSTypegroup.class);
+        cq.like("typegroupcode", "%"+game+"%");
+        cq.add();
+        cq.addOrder("id", SortDirection.asc);
+        List<BetPhaseEntity> typegroupList = systemService.getListByCriteriaQuery(cq, false);
+        comboBoxs = TagUtil.getComboBox(typegroupList, typegroups, comboBox);
+        return comboBoxs;
+    }
+    
+    @RequestMapping(params = "targetCombo")
+    @ResponseBody
+    public List<ComboBox> targetCombo(HttpServletResponse response, HttpServletRequest request, ComboBox comboBox) {
+        String type = request.getParameter("type");
+        List<ComboBox> comboBoxs = new ArrayList<ComboBox>();
+        List<TSType> types = new ArrayList();
+        CriteriaQuery cq = new CriteriaQuery(TSType.class);
+        cq.eq("TSTypegroup", systemService.getTypeGroupByCode(type));
+        cq.add();
+        List<TSType> typeList = systemService.getListByCriteriaQuery(cq,false);
+        comboBoxs = TagUtil.getComboBox(typeList, types, comboBox);
+        return comboBoxs;
+    }
 }

@@ -412,6 +412,22 @@ public class UserController extends BaseController {
 	}
 
 	/**
+     * 得到部门列表
+     * 
+     * @return
+     */
+    @RequestMapping(params = "userCombo")
+    @ResponseBody
+    public List<ComboBox> userCombo(HttpServletResponse response, HttpServletRequest request, ComboBox comboBox) {
+        String id = request.getParameter("id");
+        List<ComboBox> comboBoxs = new ArrayList<ComboBox>();
+        List<TSUser> users = new ArrayList();
+        List<TSUser> userList = systemService.getList(TSUser.class);
+        comboBoxs = TagUtil.getComboBox(userList, users, comboBox);
+        return comboBoxs;
+    }
+
+	/**
 	 * easyuiAJAX用户列表请求数据 
 	 * @param request
 	 * @param response

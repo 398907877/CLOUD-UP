@@ -144,7 +144,7 @@ public class RefreshLotteryTask {
         LogUtil.info("===================刷新开奖信息定时任务结束===================");
     }
     
-    private void analysePhase(BetPhaseEntity phase){
+    public void analysePhase(BetPhaseEntity phase){
         PhaseAnalyseEntity pa = new PhaseAnalyseEntity();
         pa.setPhase(phase.getPhase());
         pa.setOpentime(DateUtils.str2Date(phase.getOpentime(), new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")));
@@ -175,6 +175,11 @@ public class RefreshLotteryTask {
         pa.setRanking3lh(ranking3lh);
         pa.setRanking4lh(ranking4lh);
         pa.setRanking5lh(ranking5lh);
-        betPhaseService.saveOrUpdate(pa);
+        List<PhaseAnalyseEntity> pas =betPhaseService.findByProperty(PhaseAnalyseEntity.class, "phase", phase.getPhase());
+        if(pas.size()>0){
+            
+        }else{
+            betPhaseService.saveOrUpdate(pa);
+        }
     }
 }

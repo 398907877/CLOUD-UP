@@ -133,12 +133,21 @@
 					注意需要给表单元素绑定min属性来指定是至少需要选择几项，没有绑定的话使用默认值
 					eg. <input type="checkbox" name="test" datatype="min" min="3" />
 				*/
-				
 				var minim=~~obj.attr("min") || 2,
 					numselected=curform.find("input[name='"+obj.attr("name")+"']:checked").length;
 				return  numselected >= minim ? true : "请至少选择"+minim+"项！";
 			},
 			
+			"cms":function(gets,obj,curform,datatype){
+				/*
+					checkbox最少选择n项
+					注意需要给表单元素绑定min属性来指定是至少需要选择几项，没有绑定的话使用默认值
+					eg. <input type="checkbox" name="test" datatype="min" min="3" />
+				*/
+				
+				var value =$("#"+obj.attr("id")).combobox("getValue");
+				return  value != "" ? true : "请至少选择1项！";
+			},
 			
 			"max":function(gets,obj,curform,datatype){
 				/*
